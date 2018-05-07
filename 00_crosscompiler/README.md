@@ -33,7 +33,28 @@ wget https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2
 wget https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 ```
 
-Once the download finished, unpack the tarballs with these commands:
+If you want to verify the downloads, you can also download the checksums and signatures:
+
+```sh
+wget https://ftpmirror.gnu.org/binutils/binutils-2.30.tar.gz.sig
+wget https://ftpmirror.gnu.org/gcc/gcc-8.1.0/gcc-8.1.0.tar.gz.sig
+wget https://ftpmirror.gnu.org/mpfr/mpfr-4.0.1.tar.gz.sig
+wget https://ftpmirror.gnu.org/gmp/gmp-6.1.2.tar.bz2.sig
+wget https://ftpmirror.gnu.org/mpc/mpc-1.1.0.tar.gz.sig
+wget https://gcc.gnu.org/pub/gcc/infrastructure/sha512.sum
+```
+
+Once the download finished, verify the downloads by running:
+
+```sh
+sha512sum -c sha512.sum --ignore-missing
+for i in *.sig; do gpg2 --auto-key-retrieve --verify-files "${i}"; done
+```
+
+The first command should say 'OK' for isl and cloog, the second should say 'Good signature' for the
+other files.
+
+Then unpack the tarballs with these commands:
 
 ```sh
 for i in *.tar.gz; do tar -xzf $i; done
