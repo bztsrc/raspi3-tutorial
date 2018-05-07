@@ -74,6 +74,7 @@ cd binutils-*
 ln -s ../isl-* isl
 cd ..
 cd gcc-*
+ln -s ../isl-* isl
 ln -s ../mpfr-* mpfr
 ln -s ../gmp-* gmp
 ln -s ../mpc-* mpc
@@ -89,7 +90,7 @@ useful commands.
 
 ```sh
 cd binutils-*
-configure --prefix=/usr/local/cross-compiler --target=aarch64-elf \
+./configure --prefix=/usr/local/cross-compiler --target=aarch64-elf \
 --enable-shared --enable-threads=posix --enable-libmpx --with-system-zlib --with-isl --enable-__cxa_atexit \
 --disable-libunwind-exceptions --enable-clocale=gnu --disable-libstdcxx-pch --disable-libssp --enable-plugin \
 --disable-linker-build-id --enable-lto --enable-install-libiberty --with-linker-hash-style=gnu --with-gnu-ld\
@@ -107,7 +108,7 @@ And the second package, of course we'll need the *gcc compiler* itself.
 
 ```sh
 cd gcc-*
-configure --prefix=/usr/local/cross-compiler --target=aarch64-elf --enable-languages=c \
+./configure --prefix=/usr/local/cross-compiler --target=aarch64-elf --enable-languages=c \
 --enable-shared --enable-threads=posix --enable-libmpx --with-system-zlib --with-isl --enable-__cxa_atexit \
 --disable-libunwind-exceptions --enable-clocale=gnu --disable-libstdcxx-pch --disable-libssp --enable-plugin \
 --disable-linker-build-id --enable-lto --enable-install-libiberty --with-linker-hash-style=gnu --with-gnu-ld\
