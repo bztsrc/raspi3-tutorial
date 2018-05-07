@@ -61,6 +61,12 @@ for i in *.tar.gz; do tar -xzf $i; done
 for i in *.tar.bz2; do tar -xjf $i; done
 ```
 
+Remove the files, we don't need anymore:
+
+```sh
+rm -f *.tar.* sha512.sum
+```
+
 You'll need some symbolic links before you could start the compilation, so let's create them:
 
 ```sh
