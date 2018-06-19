@@ -61,7 +61,18 @@ Emulation
 ---------
 
 Unfortunately official qemu binary does not support Raspberry Pi 3 yet. But good news, I've implemented that, so
-it's coming soon. Until then, you have to compile qemu from the latest source. Once compiled, you can use it with:
+it's coming soon. Until then, you have to compile qemu from the latest source with:
+
+```sh
+git clone git://git.qemu.org/qemu.git
+cd qemu
+git checkout v2.12.0
+./configure --target-list=aarch64-softmmu
+make -j`nproc`
+export PATH="$(pwd)/aarch64-softmmu:${PATH}"
+```
+
+Once compiled, you can use it with:
 
 ```sh
 qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
