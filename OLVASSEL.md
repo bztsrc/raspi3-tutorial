@@ -78,11 +78,12 @@ qemu-system-aarch64 -M raspi3 -drive file=$(yourimagefile),if=sd,format=raw -ser
 ```
 
 Az első paraméter utasítja a qemu-t a Raspberry Pi 3 hardver emulálására. A második megadja a használandó kernel
-fájl (vagy a második esetben az SD kártya képfájl) nevét. Végezetül az utolsó paraméter lehetővé teszi, hogy az
-emulált gép UART0-ját átirányítsuk a qemu-t futtató terminál be- és kimenetére, azaz hogy minden, a virtuális gépen
-soros vonalra küldött karater megjelenjen a terminálon, az ott leütött karaktereket pedig kiolvashassuk a vm-en. Ez
-csak az 5-ös oktatóanyagtól működik, mivel az UART1 alapból *nem* irányítódik át. Ehhez plusz paraméterekre van szükség,
-mint például `-chardev socket,host=localhost,port=1111,id=aux -serial chardev:aux` (köszönet [@godmar](https://github.com/godmar)-nak az infóért).
+fájl (vagy a második esetben az SD kártya képfájl) nevét, ami lehet egy raspbian képfájl is. Végezetül az utolsó paraméter
+lehetővé teszi, hogy az emulált gép UART0-ját átirányítsuk a qemu-t futtató terminál be- és kimenetére, azaz hogy minden, a
+virtuális gépen soros vonalra küldött karater megjelenjen a terminálon, az ott leütött karaktereket pedig kiolvashassuk a vm-en.
+Ez csak az 5-ös oktatóanyagtól működik, mivel az UART1 alapból *nem* irányítódik át. Ehhez plusz paraméterekre van szükség, mint
+például `-chardev socket,host=localhost,port=1111,id=aux -serial chardev:aux` (köszönet [@godmar](https://github.com/godmar)-nak az infóért),
+vagy egyszerűen kétszer kell megadni a `-serial` kapcsolót (köszönet [@cirosantilli](https://github.com/cirosantilli)).
 
 **!!!FIGYELEM!!!** Qemu emulálása felületes, csak a legáltalánosabb perifériákat támogatja! **!!!FIGYELEM!!!**
 
