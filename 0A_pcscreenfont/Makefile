@@ -44,3 +44,6 @@ kernel8.img: start.o font.o $(OBJS)
 
 clean:
 	rm kernel8.elf *.o >/dev/null 2>/dev/null || true
+
+run:
+	qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio

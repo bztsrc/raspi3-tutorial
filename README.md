@@ -12,6 +12,7 @@ number, and how to read files from the boot partition.
 This is *not* a tutorial on how to write an OS. I won't cover topics like memory management and virtual file systems,
 or how to implement multi-tasking. If you plan to write your own OS for the Raspberry Pi, I suggest to do some
 research before you continue. This tutorial is strickly about interfacing with the hardware, and not about OS theory.
+For that, I'd recommend [raspberry-pi-os](https://github.com/s-matyukevich/raspberry-pi-os).
 
 I assume you have a fair GNU/Linux knowledge on how to compile programs and create disk and file system images. I
 won't cover those in detail, although I'll give you a few hints about how to set up a cross-compiler for this architecture.

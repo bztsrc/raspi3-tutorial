@@ -13,7 +13,7 @@ Ez az oktatóanyag *nem* arról szól, hogy hogyan írjunk operációs rendszert
 memória gazdálkodás, virtuális fájlrendszer kezelés, vagy hogy hogyan valósítsuk meg a multitaszkot. Ha saját
 OS-t szeretnél írni a Raspberry Pi-re, akkor javaslom előbb nézz körbe máshol, mielőtt folytatnád. Ez az
 oktatóanyag kifejezetten arról szól, hogy kommunikáljunk az adott hardverrel, és nem az operációs rendszerek
-hátteréről.
+hátteréről. Ha ez érdekel, ezt javaslom: [raspberry-pi-os](https://github.com/s-matyukevich/raspberry-pi-os).
 
 Feltételezem, hogy elegendő GNU/Linux ismerettel rendelkezel, tudod, hogy kell programokat fordítani és lemez
 valamint fájlrendszer képfájlokat létrehozni. Nem fogok kitérni ezekre, bár pár apró tanácsot adok arról, hogy
@@ -28,9 +28,13 @@ hatalmas, nagyobb, mint a tárolókapacitás, ezért lehetővé teszi új, izgal
 Harmadsorban MMIO-t használ, amit könnyű programozni.
 
 32 bites oktatóanyagokhoz a következőket ajánlom:
+
 [Cambridge-i oktatóanyagok](http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/) (ASM és csak 32 bites példák),
+
 [David Welch oktatóanyagai](https://github.com/dwelch67/raspberrypi) (főleg C, néhány 64 bites példával),
+
 [Peter Lemon oktatóanyagai](https://github.com/PeterLemon/RaspberryPi) (csak ASM, 64 bites példák is) and
+
 [Leon de Boer oktatóanyagai](https://github.com/LdB-ECM/Raspberry-Pi) (C és ASM, 64 bites és összetettebb példák is, mint USB és OpenGL).
 
 Előkészületek
@@ -39,7 +43,7 @@ Előkészületek
 Mielőtt belevágnánk, szükséged lesz egy kereszt-fordítóra (lásd 00_crosscompiler könyvtár) és egy Micro SD
 kártyára néhány [firmware fájllal](https://github.com/raspberrypi/firmware/tree/master/boot) egy FAT partíción.
 
-Javaslom, hogy szerezz be egy [Micro SD kártya USB adaptert](http://media.kingston.com/images/products/prodReader-FCR-MRG2-img.jpg) 
+Javaslom, hogy szerezz be egy [Micro SD kártya USB adaptert](http://media.kingston.com/images/products/prodReader-FCR-MRG2-img.jpg)
 (sok gyártó eleve szállít ilyent az SD kártyáihoz), hogy könnyedén csatlakoztathasd az asztali gépedhez, mint egy
 pent, speciális kártya olvasó interfész nélkül (habár sok laptopban gyárilag van ilyen olvasó manapság).
 
