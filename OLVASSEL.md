@@ -33,7 +33,7 @@ Harmadsorban MMIO-t használ, amit könnyű programozni.
 
 [David Welch oktatóanyagai](https://github.com/dwelch67/raspberrypi) (főleg C, néhány 64 bites példával),
 
-[Peter Lemon oktatóanyagai](https://github.com/PeterLemon/RaspberryPi) (csak ASM, 64 bites példák is) and
+[Peter Lemon oktatóanyagai](https://github.com/PeterLemon/RaspberryPi) (csak ASM, 64 bites példák is) és
 
 [Leon de Boer oktatóanyagai](https://github.com/LdB-ECM/Raspberry-Pi) (C és ASM, 64 bites és összetettebb példák is, mint USB és OpenGL).
 
@@ -64,8 +64,8 @@ Emulálás
 --------
 
 Sajnálatos módon a hivatalos qemu bináris nem támogatja a Raspberry Pi 3-at egyenlőre. De van egy jó hírem, megírtam
-a támogatást hozzá, így hamarosan érkezik. Addig sajnos fordítani kell a qemu-t a legfrissebb forrásból. Miután
-lefordult, így tudod használni:
+a támogatást hozzá, így hamarosan érkezik (FRISSÍTÉS: elérhető a [qemu 2.12](https://wiki.qemu.org/ChangeLog/2.12#ARM)-ben). Addig
+sajnos fordítani kell a qemu-t a legfrissebb forrásból. Miután lefordult, így tudod használni:
 
 ```sh
 qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
@@ -74,7 +74,7 @@ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
 Vagy (a fájl rendszer oktatóanyagok esetében)
 
 ```sh
-qemu-system-aarch64 -M raspi3 -drive file=$(yourimagefile),if=sd,format=raw -serial stdio
+qemu-system-aarch64 -M raspi3 -kernel kernel8.img -drive file=$(yourimagefile),if=sd,format=raw -serial stdio
 ```
 
 Az első paraméter utasítja a qemu-t a Raspberry Pi 3 hardver emulálására. A második megadja a használandó kernel

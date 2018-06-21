@@ -62,7 +62,8 @@ Emulation
 ---------
 
 Unfortunately official qemu binary does not support Raspberry Pi 3 yet. But good news, I've implemented that, so
-it's coming soon. Until then, you have to compile qemu from the latest source. Once compiled, you can use it with:
+it's coming soon (UPDATE: available in [qemu 2.12](https://wiki.qemu.org/ChangeLog/2.12#ARM)). Until then, you have to
+compile qemu from the latest source. Once compiled, you can use it with:
 
 ```sh
 qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
@@ -71,11 +72,11 @@ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
 Or (with the file system tutorials)
 
 ```sh
-qemu-system-aarch64 -M raspi3 -drive file=$(yourimagefile),if=sd,format=raw -serial stdio
+qemu-system-aarch64 -M raspi3 -kernel kernel8.img -drive file=$(yourimagefile),if=sd,format=raw -serial stdio
 ```
 
-The first argument tells qemu to emulate Raspberry Pi 3 hardware. The second tells the kernel filename (or in second
-case the SD card image) to be used, which can be a standard rasbian image as well. Finally the last argument redirects the
+The first argument tells qemu to emulate Raspberry Pi 3 hardware. The second tells the kernel filename to be used (or in second
+case the SD card image too, which can be a standard rasbian image as well). Finally the last argument redirects the
 emulated UART0 to the standard input/output of the terminal running qemu, so that everything sent to the serial line will be
 displayed, and every key typed in the terminal will be received by the vm. Only works with the tutorials 05 and above, as UART1
 is *not* redirected by default. For that, you would have to add something like `-chardev socket,host=localhost,port=1111,id=aux -serial chardev:aux`
