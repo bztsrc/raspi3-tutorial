@@ -85,6 +85,7 @@ The second tells the kernel filename to be used.
 In second case this argument tells the SD card image too, which can be a standard rasbian image as well.
 
 **-serial stdio**
+
 **-serial null -serial stdio**
 Finally the last argument redirects the emulated UART0 to the standard input/output of the terminal running qemu, so that everything
 sent to the serial line will be displayed, and every key typed in the terminal will be received by the vm. Only works with the

@@ -87,6 +87,7 @@ A második megadja a használandó kernel fájl nevét.
 A második esetben az extra paraméter megadja az SD kártya képfájl nevét, ami lehet egy sima raspbian képfájl is akár.
 
 **-serial stdio**
+
 **-serial null -serial stdio**
 Végezetül az utolsó paraméter lehetővé teszi, hogy az emulált gép UART0-ját átirányítsuk a qemu-t futtató terminál be- és
 kimenetére, azaz hogy minden, a virtuális gépen soros vonalra küldött karater megjelenjen a terminálon, az ott leütött karaktereket
