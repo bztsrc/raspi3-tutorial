@@ -4,7 +4,7 @@ Tutorial 03 - UART1, Auxilary mini UART
 It is time for the famous Hello World example. We're going to write on the UART1 first, as it's easier to program
 as it has a fixed clocked frequency.
 
-NOTE: qemu does not redirect UART1 to terminal by default, only UART0!
+NOTE: qemu does not redirect UART1 to terminal by default, only UART0, so you have to use `-serial null -serial stdio`.
 
 Gpio.h
 ------

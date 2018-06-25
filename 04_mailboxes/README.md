@@ -4,7 +4,7 @@ Tutorial 04 - Mailboxes
 Before we could go on with UART0, we need mailboxes. So in this tutorial we introduce the mailbox interface.
 We'll use it to query the board's serial number and print that out on UART1.
 
-NOTE: qemu does not redirect UART1 to terminal by default, only UART0!
+NOTE: qemu does not redirect UART1 to terminal by default, only UART0, so you have to use `-serial null -serial stdio`.
 
 Uart.h, uart.c
 --------------

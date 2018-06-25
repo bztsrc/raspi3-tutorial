@@ -4,7 +4,7 @@ Oktatóanyag 04 - Levelesládák
 Mielőtt nekiugranánk az UART0-ának, szükségünk lesz a levelesládára. Ezért ebben az oktatóanyagban bemutatom a
 mailbox interfészt. Arra használjuk, hogy lekérdezzük az alaplap egyedi sorszámát, majd kiírjuk azt.
 
-FIGYELEM: qemu nem irányítja át alapból az UART1-et a terminálra, csak az UART0-át!
+FIGYELEM: qemu nem irányítja át alapból az UART1-et a terminálra, csak az UART0-át, ezért `-serial null -serial stdio`-t használj.
 
 Uart.h, uart.c
 --------------

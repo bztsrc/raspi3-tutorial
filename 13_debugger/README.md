@@ -39,7 +39,7 @@ Disasm.h
 --------
 
 Because it's small (~72k), extremely easy to integrate, yet it supports all ARMv8.2 instructions, I decided to
-use the [Universal Disassembler](https://github.com/bztsrc/udisasm) for this tutorial. If you don't want to
+use the [Universal Disassembler](https://gitlab.com/bztsrc/udisasm) for this tutorial. If you don't want to
 compile a disassembler into your debugger, simply set the DISASSEMBLER define 0 in top of dbg.c.
 
 Start

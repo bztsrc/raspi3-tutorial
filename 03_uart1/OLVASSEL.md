@@ -4,7 +4,7 @@ Oktatóanyag 03 - UART1, Auxilary mini UART
 Ezúttal a hírhedt Helló Világ példát vesszük elő. Előbb az UART1-re írjuk meg, mivel azt egyszerűbb programozni,
 mivel fix órafrekvenciája van.
 
-FIGYELEM: qemu nem irányítja át alapból az UART1-et a terminálra, csak az UART0-át!
+FIGYELEM: qemu nem irányítja át alapból az UART1-et a terminálra, csak az UART0-át, ezért `-serial null -serial stdio`-t használj.
 
 Gpio.h
 ------

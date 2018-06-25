@@ -15,15 +15,16 @@ In order to load the new kernel to the same address, we have to move ourself out
 loading: one code loads the next code to the same position in memory, therefore the latter thinks it was loaded
 by the firmware. To implement that we use a different linking address this time, and since GPU loads us to 0x80000
 regardless, we have to copy our code to that link address. When we're done, the memory at 0x80000 must be free to use.
-You can check that with:
+
+We also should minimize the size of the loader, since it will be regarded by the newly loaded code anyway.
+By removing `uart_puts()` and other functions, I've managed to shrink the loader's size below 1024 bytes. This
+way I can assure that link address 0x80000 - 1024 will be suitable, and our loader code won't overlap with
+the load address. You can check that with:
 
 ```sh
 $ aarch64-elf-readelf -s kernel8.elf | grep __bss_end
     27: 000000000007ffe0     0 NOTYPE  GLOBAL DEFAULT    4 __bss_end
 ```
-
-We also should minimize the size of the loader, since it will be regarded by the newly loaded code anyway.
-By removing `uart_puts()` and other functions, I've managed to shrink the loader's size below 1024 bytes.
 
 Start
 -----
@@ -42,4 +43,4 @@ Main
 ----
 
 We print 'RBIN64', receive the new kernel over serial and save it at the memory address where the start.elf would
-have been loaded it. When finished, we restore the arguments and jump to the new kernel using an absolute address.
+have loaded it. When finished, we restore the arguments and jump to the new kernel using an absolute address.

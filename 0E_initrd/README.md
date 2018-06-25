@@ -20,7 +20,7 @@ Second, about loading your ramdisk into memory, we have several options:
 
 ### Load a file on our own
 You can use the `fat_readfile()` from the previous tutorial. In that case your initrd's address
-will be returned by the function.
+will be *returned* by the function.
 
 ### Ask the GPU to do so
 You can use `config.txt` to tell start.elf to load the initrd for you. With this you won't need
