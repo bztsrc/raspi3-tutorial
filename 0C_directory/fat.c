@@ -28,7 +28,7 @@
 
 // get the end of bss segment from linker
 extern unsigned char _end;
-unsigned int partitionlba;
+unsigned int partitionlba = 0;
 
 // the BIOS Parameter Block (in Volume Boot Record)
 typedef struct {
@@ -90,7 +90,9 @@ int fat_getpartition()
         uart_puts("MBR disk identifier: ");
         uart_hex(*((unsigned int*)((unsigned long)&_end+0x1B8)));
         uart_puts("\nFAT partition starts at: ");
-        partitionlba=*((unsigned int*)((unsigned long)&_end+0x1C6));
+        // gcc generates bad code for this...
+        //partitionlba=*((unsigned int*)((unsigned long)&_end+0x1C6));
+        partitionlba=mbr[0x1C6] + (mbr[0x1C7]<<8) + (mbr[0x1C8]<<16) + (mbr[0x1C9]<<24);
         uart_hex(partitionlba);
         uart_puts("\n");
         // read the boot record
@@ -118,15 +120,14 @@ int fat_getpartition()
  */
 void fat_listdirectory()
 {
+    unsigned char *vbr=&_end;
     bpb_t *bpb=(bpb_t*)&_end;
     fatdir_t *dir=(fatdir_t*)&_end;
     unsigned int root_sec, s;
     // find the root directory's LBA
     root_sec=((bpb->spf16?bpb->spf16:bpb->spf32)*bpb->nf)+bpb->rsc;
     //WARNING gcc generates bad code for bpb->nr, causing unaligned exception
-    s=*((unsigned int*)&bpb->nf);
-    s>>=8;
-    s&=0xFFFF;
+    s=vbr[17] + (vbr[18]<<8);
     uart_puts("FAT number of root diretory entries: ");
     uart_hex(s);
     s<<=5;
