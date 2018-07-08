@@ -27,7 +27,7 @@
 
 void main()
 {
-    unsigned int el;
+    unsigned long el;
 
     // set up serial console
     uart_init();
