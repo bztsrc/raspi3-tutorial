@@ -69,7 +69,6 @@ _start:
     mov     x0, #(1 << 31)      // AArch64
     orr     x0, x0, #(1 << 1)   // SWIO hardwired on Pi3
     msr     hcr_el2, x0
-    mrs     x0, hcr_el2
     // change execution level to EL1
     mov     x2, #0x3c4
     msr     spsr_el2, x2
