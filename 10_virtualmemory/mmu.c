@@ -57,6 +57,7 @@ extern volatile unsigned char _end;
  */
 void mmu_init()
 {
+    unsigned long data_page = (unsigned long)&_data/PAGESIZE;
     unsigned long r, b, *paging=(unsigned long*)&_end;
 
     /* create MMU translation tables at _end */
@@ -95,7 +96,7 @@ void mmu_init()
         PT_AF |       // accessed flag
         PT_USER |     // non-privileged
         PT_ISH |      // inner shareable
-        ((r<0x80||r>(unsigned long)&_data/PAGESIZE)? PT_RW|PT_NX : PT_RO); // different for code and data
+        ((r<0x80||r>(unsigned long)data_page)? PT_RW|PT_NX : PT_RO); // different for code and data
 
     // TTBR1, kernel L1
     paging[512+511]=(unsigned long)((unsigned char*)&_end+4*PAGESIZE) | // physical address
