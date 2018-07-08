@@ -75,7 +75,6 @@ _start:
     mov     x0, #(1 << 31)      // AArch64
     orr     x0, x0, #(1 << 1)   // SWIO hardwired on Pi3
     msr     hcr_el2, x0
-    mrs     x0, hcr_el2
     // Setup SCTLR access
     mov     x2, #0x0800
     movk    x2, #0x30d0, lsl #16
