@@ -168,9 +168,7 @@ char *fat_readfile(unsigned int cluster)
     // find the LBA of the first data sector
     data_sec=((bpb->spf16?bpb->spf16:bpb->spf32)*bpb->nf)+bpb->rsc;
     //WARNING gcc generates bad code for bpb->nr, causing unaligned exception
-    s=*((unsigned int*)&bpb->nf);
-    s>>=8;
-    s&=0xFFFF;
+    s=vbr[17] + (vbr[18]<<8);
     s<<=5;
     if(bpb->spf16>0) {
         // adjust for FAT16
