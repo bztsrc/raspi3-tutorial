@@ -28,17 +28,20 @@
 
 // get the end of bss segment from linker
 extern unsigned char _end;
-unsigned int partitionlba = 0;
+
+static unsigned int partitionlba = 0;
 
 // the BIOS Parameter Block (in Volume Boot Record)
 typedef struct {
     char            jmp[3];
     char            oem[8];
-    unsigned short  bps;
+    unsigned char   bps0;
+    unsigned char   bps1;
     unsigned char   spc;
     unsigned short  rsc;
     unsigned char   nf;
-    unsigned short  nr;
+    unsigned char   nr0;
+    unsigned char   nr1;
     unsigned short  ts16;
     unsigned char   media;
     unsigned short  spf16;
@@ -71,7 +74,7 @@ typedef struct {
  * so that we know where our FAT file system starts, and
  * read that volume's BIOS Parameter Block
  */
-int fat_getpartition()
+int fat_getpartition(void)
 {
     unsigned char *mbr=&_end;
     bpb_t *bpb=(bpb_t*)&_end;
@@ -90,8 +93,6 @@ int fat_getpartition()
         uart_puts("MBR disk identifier: ");
         uart_hex(*((unsigned int*)((unsigned long)&_end+0x1B8)));
         uart_puts("\nFAT partition starts at: ");
-        // gcc generates bad code for this...
-        //partitionlba=*((unsigned int*)((unsigned long)&_end+0x1C6));
         partitionlba=mbr[0x1C6] + (mbr[0x1C7]<<8) + (mbr[0x1C8]<<16) + (mbr[0x1C9]<<24);
         uart_hex(partitionlba);
         uart_puts("\n");
@@ -118,20 +119,16 @@ int fat_getpartition()
 /**
  * List root directory entries in a FAT file system
  */
-void fat_listdirectory()
+void fat_listdirectory(void)
 {
-    unsigned char *vbr=&_end;
     bpb_t *bpb=(bpb_t*)&_end;
     fatdir_t *dir=(fatdir_t*)&_end;
     unsigned int root_sec, s;
     // find the root directory's LBA
     root_sec=((bpb->spf16?bpb->spf16:bpb->spf32)*bpb->nf)+bpb->rsc;
-    //WARNING gcc generates bad code for bpb->nr, causing unaligned exception
-    s=vbr[17] + (vbr[18]<<8);
+    s = (bpb->nr0 + (bpb->nr1 << 8)) * sizeof(fatdir_t);
     uart_puts("FAT number of root diretory entries: ");
-    uart_hex(s);
-    s<<=5;
-    // now s=bpb->nr*sizeof(fatdir_t));
+    uart_hex(bpb->nr0 + (bpb->nr1 << 8));
     if(bpb->spf16==0) {
         // adjust for FAT32
         root_sec+=(bpb->rc-2)*bpb->spc;
