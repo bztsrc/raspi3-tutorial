@@ -128,7 +128,8 @@ Similarily, all peripherals communicates in memory with the CPU. Each has it's d
 device has it's own protocol. What's common for these devices that their memory must be read and written in 32 bit
 units at 4 bytes aligned addresses (so called words), and each has control/status and data words. Unfortunately
 Broadcom (the manufacturer of the SoC chip) is legendary bad at documenting their products. The best we've got is the
-BCM2835 documentation, which is close enough.
+BCM2835 documentation, which is close enough. (UPDATE: Raspberry Pi provided and updated version for
+[BCM2837 documentation](https://github.com/raspberrypi/documentation/files/1888662/)).
 
 There's also a Memory Management Unit in the CPU which allows creating virtual address spaces. This can be programmed
 by specific CPU registers, and care must be taken when you map these MMIO addresses into a virtual address space.
