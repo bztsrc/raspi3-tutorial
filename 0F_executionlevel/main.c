@@ -27,11 +27,11 @@
 
 void main()
 {
-    unsigned int el;
+    unsigned long el;
 
     // set up serial console
     uart_init();
-    
+
     // read the current level from system register
     asm volatile ("mrs %0, CurrentEL" : "=r" (el));
 
