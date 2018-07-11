@@ -28,17 +28,20 @@
 
 // get the end of bss segment from linker
 extern unsigned char _end;
-unsigned int partitionlba;
+
+static unsigned int partitionlba = 0;
 
 // the BIOS Parameter Block (in Volume Boot Record)
 typedef struct {
     char            jmp[3];
     char            oem[8];
-    unsigned short  bps;
+    unsigned char   bps0;
+    unsigned char   bps1;
     unsigned char   spc;
     unsigned short  rsc;
     unsigned char   nf;
-    unsigned short  nr;
+    unsigned char   nr0;
+    unsigned char   nr1;
     unsigned short  ts16;
     unsigned char   media;
     unsigned short  spf16;
@@ -71,7 +74,7 @@ typedef struct {
  * so that we know where our FAT file system starts, and
  * read that volume's BIOS Parameter Block
  */
-int fat_getpartition()
+int fat_getpartition(void)
 {
     unsigned char *mbr=&_end;
     bpb_t *bpb=(bpb_t*)&_end;
@@ -87,8 +90,6 @@ int fat_getpartition()
             uart_puts("ERROR: Wrong partition type\n");
             return 0;
         }
-        // gcc generates bad code for this...
-        //partitionlba=*((unsigned int*)((unsigned long)&_end+0x1C6));
         partitionlba=mbr[0x1C6] + (mbr[0x1C7]<<8) + (mbr[0x1C8]<<16) + (mbr[0x1C9]<<24);
         // read the boot record
         if(!sd_readblock(partitionlba,&_end,1)) {
@@ -111,16 +112,12 @@ int fat_getpartition()
  */
 unsigned int fat_getcluster(char *fn)
 {
-    unsigned char *vbr=&_end;
     bpb_t *bpb=(bpb_t*)&_end;
     fatdir_t *dir=(fatdir_t*)(&_end+512);
     unsigned int root_sec, s;
     // find the root directory's LBA
     root_sec=((bpb->spf16?bpb->spf16:bpb->spf32)*bpb->nf)+bpb->rsc;
-    //WARNING gcc generates bad code for bpb->nr, causing unaligned exception
-    s=vbr[17] + (vbr[18]<<8);
-    s<<=5;
-    // now s=bpb->nr*sizeof(fatdir_t));
+    s = (bpb->nr0 + (bpb->nr1 << 8)) * sizeof(fatdir_t);
     if(bpb->spf16==0) {
         // adjust for FAT32
         root_sec+=(bpb->rc-2)*bpb->spc;
@@ -157,7 +154,6 @@ unsigned int fat_getcluster(char *fn)
 char *fat_readfile(unsigned int cluster)
 {
     // BIOS Parameter Block
-    unsigned char *vbr=&_end;
     bpb_t *bpb=(bpb_t*)&_end;
     // File allocation tables. We choose between FAT16 and FAT32 dynamically
     unsigned int *fat32=(unsigned int*)(&_end+bpb->rsc*512);
@@ -167,9 +163,7 @@ char *fat_readfile(unsigned int cluster)
     unsigned char *data, *ptr;
     // find the LBA of the first data sector
     data_sec=((bpb->spf16?bpb->spf16:bpb->spf32)*bpb->nf)+bpb->rsc;
-    //WARNING gcc generates bad code for bpb->nr, causing unaligned exception
-    s=vbr[17] + (vbr[18]<<8);
-    s<<=5;
+    s = (bpb->nr0 + (bpb->nr1 << 8)) * sizeof(fatdir_t);
     if(bpb->spf16>0) {
         // adjust for FAT16
         data_sec+=(s+511)>>9;
@@ -178,8 +172,7 @@ char *fat_readfile(unsigned int cluster)
     data_sec+=partitionlba;
     // dump important properties
     uart_puts("FAT Bytes per Sector: ");
-    //uart_hex(bpb->bps);
-    uart_hex(vbr[11] + (vbr[12]<<8));
+    uart_hex(bpb->bps0 + (bpb->bps1 << 8));
     uart_puts("\nFAT Sectors per Cluster: ");
     uart_hex(bpb->spc);
     uart_puts("\nFAT Number of FAT: ");
@@ -200,7 +193,7 @@ char *fat_readfile(unsigned int cluster)
         // load all sectors in a cluster
         sd_readblock((cluster-2)*bpb->spc+data_sec,ptr,bpb->spc);
         // move pointer, sector per cluster * bytes per sector
-        ptr+=bpb->spc*bpb->bps;
+        ptr+=bpb->spc*(bpb->bps0 + (bpb->bps1 << 8));
         // get the next cluster in chain
         cluster=bpb->spf16>0?fat16[cluster]:fat32[cluster];
     }

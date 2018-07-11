@@ -23,5 +23,5 @@
  *
  */
 
-int fat_getpartition();
-void fat_listdirectory();
+int fat_getpartition(void);
+void fat_listdirectory(void);
