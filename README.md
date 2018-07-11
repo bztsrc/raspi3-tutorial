@@ -40,6 +40,7 @@ Prerequisites
 
 Before you can start, you'll need a cross-compiler (see 00_crosscompiler directory for details)
 and a Micro SD card with [firmware files](https://github.com/raspberrypi/firmware/tree/master/boot) on a FAT filesystem.
+I'd like to say thanks to [@laroche](https://github.com/laroche) for testing these tutorials with Clang too.
 
 I recommend to get a [Micro SD card USB adapter](http://media.kingston.com/images/products/prodReader-FCR-MRG2-img.jpg)
 (many manufacturers ship SD cards with such an adapter), so that you can connect the card to any desktop computer just

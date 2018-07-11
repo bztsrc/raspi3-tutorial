@@ -90,6 +90,8 @@ int fat_getpartition(void)
             uart_puts("ERROR: Wrong partition type\n");
             return 0;
         }
+        // should be this, but compiler generates bad code...
+        //partitionlba=*((unsigned int*)((unsigned long)&_end+0x1C6));
         partitionlba=mbr[0x1C6] + (mbr[0x1C7]<<8) + (mbr[0x1C8]<<16) + (mbr[0x1C9]<<24);
         // read the boot record
         if(!sd_readblock(partitionlba,&_end,1)) {

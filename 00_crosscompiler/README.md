@@ -10,6 +10,8 @@ or ask on an appropriate support forum for your operating system. I can't and wo
 you have to solve that on your own. As I've said in the introduction I assume you know how to compile programs
 (including the compilation of the cross-compiler).
 
+**NOTE**: if you don't like gcc, thanks to @laroche, the tutorials are tested with Clang too.
+
 Build system
 ------------
 

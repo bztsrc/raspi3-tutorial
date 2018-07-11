@@ -10,6 +10,8 @@ fordítsunk gcc kereszt-fordítót" vagy kérdezz az operációs rendszered szer
 nem is fogok segíteni a környezeted kialakításában, azt neked kell megoldanod. Mint a bevezetőben már írtam,
 feltételezem, hogy tudod, hogyan kell programokat fordítani (beleértve a kereszt-fordító fordítását).
 
+**MEGJEGYZÉS**: ha a gcc nem a szíved csücske, @laroche-nak hála az oktatóanyagok Clang-al is le lettek tesztelve.
+
 Build rendszer
 --------------
 
