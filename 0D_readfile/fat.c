@@ -160,13 +160,14 @@ char *fat_readfile(unsigned int cluster)
     // File allocation tables. We choose between FAT16 and FAT32 dynamically
     unsigned int *fat32=(unsigned int*)(&_end+bpb->rsc*512);
     unsigned short *fat16=(unsigned short*)fat32;
+    unsigned int spf = bpb->spf16? bpb->spf16 : bpb->spf32;
     // Data pointers
     unsigned int data_sec, s;
     unsigned char *data, *ptr;
     // find the LBA of the first data sector
-    data_sec=((bpb->spf16?bpb->spf16:bpb->spf32)*bpb->nf)+bpb->rsc;
+    data_sec = (spf * bpb->nf) + bpb->rsc;
     s = (bpb->nr0 + (bpb->nr1 << 8)) * sizeof(fatdir_t);
-    if(bpb->spf16>0) {
+    if(bpb->spf16) {
         // adjust for FAT16
         data_sec+=(s+511)>>9;
     }
@@ -180,14 +181,14 @@ char *fat_readfile(unsigned int cluster)
     uart_puts("\nFAT Number of FAT: ");
     uart_hex(bpb->nf);
     uart_puts("\nFAT Sectors per FAT: ");
-    uart_hex((bpb->spf16?bpb->spf16:bpb->spf32));
+    uart_hex(spf);
     uart_puts("\nFAT Reserved Sectors Count: ");
     uart_hex(bpb->rsc);
     uart_puts("\nFAT First data sector: ");
     uart_hex(data_sec);
     uart_puts("\n");
     // load FAT table
-    s=sd_readblock(partitionlba+1,(unsigned char*)&_end+512,(bpb->spf16?bpb->spf16:bpb->spf32)+bpb->rsc);
+    s=sd_readblock(partitionlba+1,(unsigned char*)&_end+512,spf+bpb->rsc);
     // end of FAT in memory
     data=ptr=&_end+512+s;
     // iterate on cluster chain
@@ -197,7 +198,7 @@ char *fat_readfile(unsigned int cluster)
         // move pointer, sector per cluster * bytes per sector
         ptr+=bpb->spc*(bpb->bps0 + (bpb->bps1 << 8));
         // get the next cluster in chain
-        cluster=bpb->spf16>0?fat16[cluster]:fat32[cluster];
+        cluster=bpb->spf16?fat16[cluster]:fat32[cluster];
     }
     return (char*)data;
 }
