@@ -24,26 +24,23 @@
 #
 #
 
-include ../Makefile-common
 
-SRCS = $(wildcard *.c)
-OBJS = $(SRCS:.c=.o)
+CROSSCOMPILE ?= aarch64-elf-
+#CCACHE = ccache
+CC = $(CCACHE) $(CROSSCOMPILE)gcc
+#CC = $(CCACHE) clang -target aarch64-unknown-eabihf -march=armv8-a+nosimd+nofp -mgeneral-regs-only
+LD = $(CROSSCOMPILE)ld
+OBJCOPY = $(CROSSCOMPILE)objcopy
+OBJDUMP = $(CROSSCOMPILE)objdump
+QEMU = qemu-system-aarch64
 
-.PHONY: all clean run
+CFLAGS = -Wall -Wno-shift-negative-value -O2 -ffreestanding -nostdinc -I include
+LDFLAGS = -nostdlib -nostartfiles
 
-all: clean kernel8.img
 
-kernel8.elf: start.o $(OBJS) link.ld
-	$(LD) $(LDFLAGS) -Map=kernel8.map start.o $(OBJS) -T link.ld -o $@
-	#$(CC) $(CFLAGS) $(LDFLAGS) -Wl,-Map=kernel8.map start.o $(OBJS) -T link.ld -o $@
+%.o: %.S
+	$(CC) $(CFLAGS) -c $< -o $@
 
-kernel8.img: kernel8.elf
-	$(OBJDUMP) -t $< | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' | sort > kernel8.sym
-	$(OBJCOPY) -O binary $< $@
-
-clean:
-	rm -f kernel8.elf kernel8.map kernel8.sym *.o
-
-run: all
-	$(QEMU) -M raspi3 -kernel kernel8.img -serial stdio -display none
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 

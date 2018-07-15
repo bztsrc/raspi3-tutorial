@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2018 bzt (bztsrc@github)
+# Copyright (C) 2018 Florian La Roche (Florian.LaRoche@gmail.com)
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -23,33 +24,35 @@
 #
 #
 
+include ../Makefile-common
+
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
+
+.PHONY: all clean run cpio tar
 
 all: clean kernel8.img
-
-start.o: start.S
-	aarch64-elf-gcc $(CFLAGS) -c start.S -o start.o
-
-%.o: %.c
-	aarch64-elf-gcc $(CFLAGS) -c $< -o $@
 
 tar:
 	tar -cf ramdisk *.md *.c *.h
 
 cpio:
-	ls *.md *.c *.h | cpio -H hpodc -o >ramdisk
+	ls *.md *.c *.h | cpio -H hpodc -o > ramdisk
 
 rd.o: ramdisk
-	aarch64-elf-ld -r -b binary -o rd.o ramdisk
+	$(LD) -r -b binary -o $@ $<
 
-kernel8.img: start.o rd.o $(OBJS)
-	aarch64-elf-ld -nostdlib -nostartfiles start.o rd.o $(OBJS) -T link.ld -o kernel8.elf
-	aarch64-elf-objcopy -O binary kernel8.elf kernel8.img
+kernel8.elf: start.o rd.o $(OBJS) link.ld
+	$(LD) $(LDFLAGS) -Map=kernel8.map start.o rd.o $(OBJS) -T link.ld -o $@
+	#$(CC) $(CFLAGS) $(LDFLAGS) -Wl,-Map=kernel8.map start.o rd.o $(OBJS) -T link.ld -o $@
+
+kernel8.img: kernel8.elf
+	$(OBJDUMP) -t $< | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' | sort > kernel8.sym
+	$(OBJCOPY) -O binary $< $@
 
 clean:
-	rm kernel8.elf *.o >/dev/null 2>/dev/null || true
+	rm -f kernel8.elf kernel8.map kernel8.sym *.o
 
-run:
-	qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+run: all
+	$(QEMU) -M raspi3 -kernel kernel8.img -serial stdio -display none
+
