@@ -38,9 +38,9 @@ formátumban
 Disasm.h
 --------
 
-Mivel kicsi (~72k), kivételesen könnyű integrálni, mégis minden ARMv8.2-es utasítást ismer, ezért a választásom
-az [Universal Disassembler](https://gitlab.com/bztsrc/udisasm)-re esett ehhez az oktatóanyaghoz. Ha nem szeretnél
-disassemblert belefordítani a debuggeredbe, akkor a dbg.c fájl elején állítsd a DISASSEMBLER define-t 0-ra.
+Mivel kicsi (~64k), mégis minden ARMv8.2-es utasítást ismer, és az sprintf() az egyetlen függősége (amivel már rendelkezünk),
+ezért a választásom az [Universal Disassembler](https://gitlab.com/bztsrc/udisasm)-re esett ehhez az oktatóanyaghoz. Ha nem
+szeretnél disassemblert belefordítani a debuggeredbe, akkor a dbg.c fájl elején állítsd a DISASSEMBLER define-t 0-ra.
 
 Start
 -----
