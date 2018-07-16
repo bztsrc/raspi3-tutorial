@@ -49,8 +49,8 @@
 #define TTBR_ENABLE 1
 
 // get addresses from linker
-extern volatile unsigned char _data;
-extern volatile unsigned char _end;
+extern unsigned char _data;
+extern unsigned char _end;
 
 /**
  * Set up page translation tables and enable virtual memory

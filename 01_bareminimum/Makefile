@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2018 bzt (bztsrc@github)
+# Copyright (C) 2018 Florian La Roche (Florian.LaRoche@gmail.com)
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -23,19 +24,23 @@
 #
 #
 
-CFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
+include ../Makefile-common
+
+.PHONY: all clean run
 
 all: clean kernel8.img
 
-start.o: start.S
-	aarch64-elf-gcc $(CFLAGS) -c start.S -o start.o
+kernel8.elf: start.o link.ld
+	$(LD) $(LDFLAGS) -Map=kernel8.map start.o -T link.ld -o $@
+	#$(CC) $(CFLAGS) $(LDFLAGS) -Wl,-Map=kernel8.map start.o -T link.ld -o $@
 
-kernel8.img: start.o
-	aarch64-elf-ld -nostdlib -nostartfiles start.o -T link.ld -o kernel8.elf
-	aarch64-elf-objcopy -O binary kernel8.elf kernel8.img
+kernel8.img: kernel8.elf
+	$(OBJDUMP) -t $< | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' | sort > kernel8.sym
+	$(OBJCOPY) -O binary $< $@
 
 clean:
-	rm kernel8.elf *.o >/dev/null 2>/dev/null || true
+	rm -f kernel8.elf kernel8.map kernel8.sym *.o
 
-run:
-	qemu-system-aarch64 -M raspi3 -kernel kernel8.img -d in_asm
+run: all
+	$(QEMU) -M raspi3 -kernel kernel8.img -d in_asm -display none
+
