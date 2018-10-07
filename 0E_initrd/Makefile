@@ -22,31 +22,31 @@
 # DEALINGS IN THE SOFTWARE.
 #
 #
+include ../Make.config
 
-SRCS = $(wildcard *.c)
+SRCS = $(wildcard *.c) ../compat/memcmp.c
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
 
 all: clean kernel8.img
 
 start.o: start.S
-	aarch64-elf-gcc $(CFLAGS) -c start.S -o start.o
+	$(CC_CROSS) $(CFLAGS) -c start.S -o start.o
 
 %.o: %.c
-	aarch64-elf-gcc $(CFLAGS) -c $< -o $@
+	$(CC_CROSS) $(CFLAGS) -c $< -o $@
 
 tar:
 	tar -cf ramdisk *.md *.c *.h
 
-cpio:
+ramdisk:
 	ls *.md *.c *.h | cpio -H hpodc -o >ramdisk
 
 rd.o: ramdisk
-	aarch64-elf-ld -r -b binary -o rd.o ramdisk
+	$(LD_CROSS) -r -b binary -o rd.o ramdisk
 
 kernel8.img: start.o rd.o $(OBJS)
-	aarch64-elf-ld -nostdlib -nostartfiles start.o rd.o $(OBJS) -T link.ld -o kernel8.elf
-	aarch64-elf-objcopy -O binary kernel8.elf kernel8.img
+	$(LD_CROSS) $(LDFLAGS) start.o rd.o $(OBJS) -o kernel8.elf
+	$(OBJCOPY_CROSS) -O binary kernel8.elf kernel8.img
 
 clean:
 	rm kernel8.elf *.o >/dev/null 2>/dev/null || true
