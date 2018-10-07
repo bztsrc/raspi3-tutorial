@@ -22,17 +22,16 @@
 # DEALINGS IN THE SOFTWARE.
 #
 #
-
-CFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
+include ../Make.config
 
 all: clean kernel8.img
 
 start.o: start.S
-	aarch64-elf-gcc $(CFLAGS) -c start.S -o start.o
+	$(CC_CROSS) $(CFLAGS) -c start.S -o start.o
 
 kernel8.img: start.o
-	aarch64-elf-ld -nostdlib -nostartfiles start.o -T link.ld -o kernel8.elf
-	aarch64-elf-objcopy -O binary kernel8.elf kernel8.img
+	$(LD_CROSS) $(LDFLAGS) start.o -o kernel8.elf
+	$(OBJCOPY_CROSS) -O binary kernel8.elf kernel8.img
 
 clean:
 	rm kernel8.elf *.o >/dev/null 2>/dev/null || true

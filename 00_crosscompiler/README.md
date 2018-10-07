@@ -12,6 +12,21 @@ you have to solve that on your own. As I've said in the introduction I assume yo
 
 **NOTE**: if you don't like gcc, thanks to @laroche, the tutorials are tested with Clang too.
 
+OS-provided cross compiler
+-------------------------
+
+Distribution derived from Debian (and possibly others) provide the `gcc-aarch64-linux-gnu` cross-compiler which works
+just fine with all the code in this tutorial. By default the tutorial makefiles use the cross-compiler built according
+to instructions below, but if you wish to save some time and use the one provide by your distribution you can compile
+all the samples with the distribution cross-compiler using the below command line:
+
+    make TOOLCHAIN_PREFIX=aarch64-linux-gnu
+
+Additionally, if your distribution has clang and you have it installed, you can build all the samples with it (you **still**
+need to install `gcc-aarch64-linux-gnu`) using the following command line:
+
+    make TOOLCHAIN_PREFIX=aarch64-linux-gnu USE_CLANG=1
+
 Build system
 ------------
 

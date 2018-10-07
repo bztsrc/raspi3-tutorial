@@ -1,0 +1,3 @@
+*.o
+*.elf
+0E_initrd/ramdisk
