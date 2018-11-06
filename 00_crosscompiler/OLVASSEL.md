@@ -63,8 +63,9 @@ Oké, két csomagot kell fordítanunk. Az egyik a *binutils*, ami tartalmazza a 
 hasznos parancsot.
 
 ```sh
-cd binutils-*
-configure --prefix=/usr/local/cross-compiler --target=aarch64-elf \
+mkdir aarch64-binutils
+cd aarch64-binutils
+../binutils-*/configure --prefix=/usr/local/cross-compiler --target=aarch64-elf \
 --enable-shared --enable-threads=posix --enable-libmpx --with-system-zlib --with-isl --enable-__cxa_atexit \
 --disable-libunwind-exceptions --enable-clocale=gnu --disable-libstdcxx-pch --disable-libssp --enable-plugin \
 --disable-linker-build-id --enable-lto --enable-install-libiberty --with-linker-hash-style=gnu --with-gnu-ld\
@@ -72,6 +73,7 @@ configure --prefix=/usr/local/cross-compiler --target=aarch64-elf \
 --enable-default-ssp --enable-gnu-unique-object
 make -j4
 make install
+cd ..
 ```
 
 Az első paraméter megmondja a configure szkriptnek, hogy a `/usr/local/cross-compiler` mappába telepítsen. A második
@@ -81,8 +83,9 @@ bizonyos funkciókat, ne foglalkozz velük. Elég annyit tudni, hogy ezek egy be
 A második csomag, természetesen maga a *gcc* fordító.
 
 ```sh
-cd gcc-*
-configure --prefix=/usr/local/cross-compiler --target=aarch64-elf --enable-languages=c \
+mkdir aarch64-gcc
+cd aarch64-gcc
+../gcc-*/configure --prefix=/usr/local/cross-compiler --target=aarch64-elf --enable-languages=c \
 --enable-shared --enable-threads=posix --enable-libmpx --with-system-zlib --with-isl --enable-__cxa_atexit \
 --disable-libunwind-exceptions --enable-clocale=gnu --disable-libstdcxx-pch --disable-libssp --enable-plugin \
 --disable-linker-build-id --enable-lto --enable-install-libiberty --with-linker-hash-style=gnu --with-gnu-ld\
@@ -90,6 +93,7 @@ configure --prefix=/usr/local/cross-compiler --target=aarch64-elf --enable-langu
 --enable-default-ssp --enable-gnu-unique-object
 make -j4 all-gcc
 make install-gcc
+cd ..
 ```
 
 Itt ugyanúgy megadjuk a könyvtárat és a célarchitektúrát, mint az előbb. Megadjuk azt is, hogy csak C fordítót kérünk,

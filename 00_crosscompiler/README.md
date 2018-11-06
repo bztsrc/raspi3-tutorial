@@ -91,8 +91,9 @@ Okay, now we have to build two packages. One is called *binutils*, which include
 useful commands.
 
 ```sh
-cd binutils-*
-./configure --prefix=/usr/local/cross-compiler --target=aarch64-elf \
+mkdir aarch64-binutils
+cd aarch64-binutils
+../binutils-*/configure --prefix=/usr/local/cross-compiler --target=aarch64-elf \
 --enable-shared --enable-threads=posix --enable-libmpx --with-system-zlib --with-isl --enable-__cxa_atexit \
 --disable-libunwind-exceptions --enable-clocale=gnu --disable-libstdcxx-pch --disable-libssp --enable-plugin \
 --disable-linker-build-id --enable-lto --enable-install-libiberty --with-linker-hash-style=gnu --with-gnu-ld\
@@ -100,6 +101,7 @@ cd binutils-*
 --enable-default-ssp --enable-gnu-unique-object
 make -j4
 make install
+cd ..
 ```
 
 The first argument tells the configure script to install the build in `/usr/local/cross-compiler`. The second
@@ -109,8 +111,9 @@ options on and off, don't bother. It's enough to know they are appropriately twe
 And the second package, of course we'll need the *gcc compiler* itself.
 
 ```sh
-cd gcc-*
-./configure --prefix=/usr/local/cross-compiler --target=aarch64-elf --enable-languages=c \
+mkdir aarch64-gcc
+cd aarch64-gcc
+../gcc-*/configure --prefix=/usr/local/cross-compiler --target=aarch64-elf --enable-languages=c \
 --enable-shared --enable-threads=posix --enable-libmpx --with-system-zlib --with-isl --enable-__cxa_atexit \
 --disable-libunwind-exceptions --enable-clocale=gnu --disable-libstdcxx-pch --disable-libssp --enable-plugin \
 --disable-linker-build-id --enable-lto --enable-install-libiberty --with-linker-hash-style=gnu --with-gnu-ld\
@@ -118,6 +121,7 @@ cd gcc-*
 --enable-default-ssp --enable-gnu-unique-object
 make -j4 all-gcc
 make install-gcc
+cd ..
 ```
 
 Here we specify the same directory and architecture as before. We also tell to compile only the C compiler, as gcc
