@@ -35,6 +35,14 @@ For 32 bit tutorials, I'd recommend:
 
 [Leon de Boer's tutorials](https://github.com/LdB-ECM/Raspberry-Pi) (C and ASM, also for 64 bit, more complex examples like USB and OpenGL).
 
+Why not C++?
+------------
+
+The C language in "freestanding" mode allows us to develop directly to the hardware. With C++ this is not
+possible, because that requires a runtime library. If you are interested in this, then I suggest to take a look
+at the brilliant [Circle C++](https://github.com/rsta2/circle) library, which not only contains the mandatory
+C++ runtime, but also implements every Raspberry Pi functionalities we're about to discuss in this tutorials (and even more).
+
 Prerequisites
 -------------
 

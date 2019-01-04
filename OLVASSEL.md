@@ -37,6 +37,15 @@ Harmadsorban MMIO-t használ, amit könnyű programozni.
 
 [Leon de Boer oktatóanyagai](https://github.com/LdB-ECM/Raspberry-Pi) (C és ASM, 64 bites és összetettebb példák is, mint USB és OpenGL).
 
+Miért nem C++?
+--------------
+
+A C nyelv "freestanding" módban lehetővé teszi, hogy direktben a vasra programozzunk. C++ esetében ez nem lehetséges,
+ott mindenképp szükség van egy runtime függvénykönyvtárra. Ha valakit ez érdekel, akkor ajánlom figyelmébe a
+nagyszerű [Circle C++](https://github.com/rsta2/circle) függvénykönyvtárat, ami nemcsak a C++-hoz szükséges függvényeket
+tartalmazza, hanem minden Raspberry Pi funkció, amit ebben az oktatóanyagban sorra veszünk (és még több is) már eleve
+implementálva van benne, csak meg kell hívni őket.
+
 Előkészületek
 -------------
 
