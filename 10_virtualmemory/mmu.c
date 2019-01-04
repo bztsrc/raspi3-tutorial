@@ -46,7 +46,7 @@
 #define PT_DEV      (1<<2)      // device MMIO
 #define PT_NC       (2<<2)      // non-cachable
 
-#define TTBR_ENABLE 1
+#define TTBR_CNP    1
 
 // get addresses from linker
 extern volatile unsigned char _data;
@@ -156,11 +156,11 @@ void mmu_init()
         (25LL   << 0);   // T0SZ=25, 3 levels (512G)
     asm volatile ("msr tcr_el1, %0; isb" : : "r" (r));
 
-    // tell the MMU where our translation tables are. TTBR_ENABLE bit not documented, but required
+    // tell the MMU where our translation tables are. TTBR_CNP bit not documented, but required
     // lower half, user space
-    asm volatile ("msr ttbr0_el1, %0" : : "r" ((unsigned long)&_end + TTBR_ENABLE));
+    asm volatile ("msr ttbr0_el1, %0" : : "r" ((unsigned long)&_end + TTBR_CNP));
     // upper half, kernel space
-    asm volatile ("msr ttbr1_el1, %0" : : "r" ((unsigned long)&_end + TTBR_ENABLE + PAGESIZE));
+    asm volatile ("msr ttbr1_el1, %0" : : "r" ((unsigned long)&_end + TTBR_CNP + PAGESIZE));
 
     // finally, toggle some bits in system control register to enable page translation
     asm volatile ("dsb ish; isb; mrs %0, sctlr_el1" : "=r" (r));

@@ -28,10 +28,18 @@ regiszter, aminek az elemeire indexelnek a lapcím fordító tábla bejegyzései
 A következőképp fogjuk leképezni a virtuális memóriát: az alacsony címeket egy-az-egyben megfeleltetéssel 2M
 blokkonként, kivéve az első blokkot, amit 4k-nként. A magas címekre pedig, -2M-nél leképezzük az UART0 MMIO-ját.
 
+Talán nem nyilvánvaló, de a lapfordító fa különböző lapokra mutathat. Ezt nagyon macerás lenne lekezelni C-ben,
+ezért egy kis trükköt alkalmazunk. Egy darab egybefüggő memórián tároljuk a lapfordító táblázatokat, és egy
+szimpla `paging` tömbbel érjük el. Mivel 4k-s lapokat használunk, és egy lapfordító bejegyzés 8 bájtos, ezért
+512 bejegyzés található minden lapon. Emiatt a 0..511 indexek hivatkoznak az első lapra, az 512..1023 a másodikra
+és így tovább. Más szavakkal a paging[0] címe megegyezik az _end-el (első lap), a paging[512] pedig az _end + PAGESIZE
+címével (második lap).
+
 Mmu.h, mmu.c
 ------------
 
-`mmu_init()` inicializálja a memória címfordító egységet (Memory Management Unit)
+`mmu_init()` inicializálja a memória címfordító egységet (Memory Management Unit). Feltöltjük a paging tömböt
+értékekkel, majd megmondjuk a CPU-nak hogy ezt használja.
 
 Start
 -----

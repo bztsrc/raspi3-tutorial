@@ -27,10 +27,17 @@ translation attributes.
 We are going to translate virtual address space as follows: lower half will be identity mapped in 2M blocks, except
 the first block which will be mapped by 4k frames. In the higher half, at -2M we will map the MMIO of UART0.
 
+Maybe it's not obvious, but the translation tree can point to individual pages. This would be a nightmare to handle
+in C, therefore we do a little trick here. We use only one contiguous memory area for all the translation tables, and
+we access them with a single `paging` array. Because we choose 4k as page size, and one translation entry is 8 bytes,
+that means we have 512 entries on each page. Therefore indeces 0..511 belong to the first page, 512..1023 to the
+second and so forth. With other words, the address of paging[0] equals to _end (first page), and paging[512] equals to
+_end + PAGESIZE (second page).
+
 Mmu.h, mmu.c
 ------------
 
-`mmu_init()` function to initialize Memory Management Unit.
+`mmu_init()` function to initialize Memory Management Unit. Here we set up the paging array and we tell the CPU to use it.
 
 Start
 -----
