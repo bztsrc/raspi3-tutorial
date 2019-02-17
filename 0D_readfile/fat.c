@@ -26,6 +26,18 @@
 #include "sd.h"
 #include "uart.h"
 
+// add memory compare, gcc has a built-in for that, clang needs implementation
+#ifdef __clang__
+int memcmp(void *s1, void *s2, int n)
+{
+    unsigned char *a=s1,*b=s2;
+    while(n-->0){ if(*a!=*b) { return *a-*b; } a++; b++; }
+    return 0;
+}
+#else
+#define memcmp __builtin_memcmp
+#endif
+
 // get the end of bss segment from linker
 extern unsigned char _end;
 
@@ -133,7 +145,7 @@ unsigned int fat_getcluster(char *fn)
             // is it a valid entry?
             if(dir->name[0]==0xE5 || dir->attr[0]==0xF) continue;
             // filename match?
-            if(!__builtin_memcmp(dir->name,fn,11)) {
+            if(!memcmp(dir->name,fn,11)) {
                 uart_puts("FAT File ");
                 uart_puts(fn);
                 uart_puts(" starts at cluster: ");

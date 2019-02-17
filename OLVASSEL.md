@@ -51,7 +51,10 @@ Előkészületek
 
 Mielőtt belevágnánk, szükséged lesz egy kereszt-fordítóra (lásd 00_crosscompiler könyvtár) és egy Micro SD
 kártyára néhány [firmware fájllal](https://github.com/raspberrypi/firmware/tree/master/boot) egy FAT partíción.
-Szeretném külön megköszönni [@laroche](https://github.com/laroche)-nak, amiért az oktatóanyagokat Clang-al is letesztelte.
+
+Minden könyvtárban található egy Makefile.gcc és egy Makefile.clang. Bizonyosodj meg róla, hogy a Makefile symlink az általad
+választott kereszt-fordítódra mutat-e. Szeretném külön megköszönni [@laroche](https://github.com/laroche)-nak, amiért az
+oktatóanyagokat elsőként Clang-al is letesztelte.
 
 Javaslom, hogy szerezz be egy [Micro SD kártya USB adaptert](http://media.kingston.com/images/products/prodReader-FCR-MRG2-img.jpg)
 (sok gyártó eleve szállít ilyent az SD kártyáihoz), hogy könnyedén csatlakoztathasd az asztali gépedhez, mint egy

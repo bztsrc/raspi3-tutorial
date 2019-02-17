@@ -41,14 +41,17 @@ Why not C++?
 The C language in "freestanding" mode allows us to develop directly to the hardware. With C++ this is not
 possible, because that requires a runtime library. If you are interested in this, then I suggest to take a look
 at the brilliant [Circle C++](https://github.com/rsta2/circle) library, which not only contains the mandatory
-C++ runtime, but also implements every Raspberry Pi functionalities we're about to discuss in this tutorials (and even more).
+C++ runtime, but also implements every Raspberry Pi functionalities we're about to discuss in these tutorials (and even more).
 
 Prerequisites
 -------------
 
 Before you can start, you'll need a cross-compiler (see 00_crosscompiler directory for details)
 and a Micro SD card with [firmware files](https://github.com/raspberrypi/firmware/tree/master/boot) on a FAT filesystem.
-I'd like to say thanks to [@laroche](https://github.com/laroche) for testing these tutorials with Clang too.
+
+Every directory has a Makefile.gcc and a Makefile.clang. Make sure the Makefile symlink points to the version according to
+the cross-compiler of your choosing.  I'd like to say thanks to [@laroche](https://github.com/laroche) for testing these
+tutorials for the first time with Clang too.
 
 I recommend to get a [Micro SD card USB adapter](http://media.kingston.com/images/products/prodReader-FCR-MRG2-img.jpg)
 (many manufacturers ship SD cards with such an adapter), so that you can connect the card to any desktop computer just

@@ -10,14 +10,28 @@ or ask on an appropriate support forum for your operating system. I can't and wo
 you have to solve that on your own. As I've said in the introduction I assume you know how to compile programs
 (including the compilation of the cross-compiler).
 
-**NOTE**: if you don't like gcc, thanks to @laroche, the tutorials are tested with Clang too.
+Each directory has two Makefiles, one for the GNU gcc, and one for LLVM clang. Pick the one you prefer. I could have used makefile
+variables and a common configuration, but it was important that each tutorial must be self-contained and dependency-free.
+
+LLVM Compiler and Linker
+------------------------
+
+Clang by design is a cross-compiler, therefore you don't have to build a special version of it like with gcc. For
+some (probably archaical) reason the corresponding linker uses a different target (no '-' in it), keep that in mind.
+
+```
+clang --target=aarch64-elf
+ld.lld -m aarch64elf
+```
+
+Also note that you'll need other tools. You can find [url=https://github.com/llvm-mirror/llvm/tree/master/tools/llvm-objcopy]llvm-objcopy[/url] here.
 
 Build system
 ------------
 
 To orchestrate compilation, we'll use GNU make. No need for cross-compiling this, as we are about to use it on the
 host computer only, and not on the target machine. The reason I choosed this build system for the tutorials is that
-GNU make is also required to compile the compiler, so you'll need it anyway.
+GNU make is also required to compile the GNU compiler, so you'll need it anyway.
 
 Download and unpack sources
 ---------------------------

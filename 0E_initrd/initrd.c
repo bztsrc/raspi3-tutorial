@@ -25,6 +25,18 @@
 
 #include "uart.h"
 
+// add memory compare, gcc has a built-in for that, clang needs implementation
+#ifdef __clang__
+int memcmp(void *s1, void *s2, int n)
+{
+    unsigned char *a=s1,*b=s2;
+    while(n-->0){ if(*a!=*b) { return *a-*b; } a++; b++; }
+    return 0;
+}
+#else
+#define memcmp __builtin_memcmp
+#endif
+
 /* POSIX ustar header format */
 typedef struct {                /* byte offset */
   char name[100];               /*   0 */
@@ -85,7 +97,7 @@ void initrd_list(char *buf)
     uart_puts("Type     Offset   Size     Access rights\tFilename\n");
 
     // iterate on archive's contents
-    while(!__builtin_memcmp(buf+257,"ustar",5)) {
+    while(!memcmp(buf+257,"ustar",5)) {
         // if it's an ustar archive
         tar_t *header=(tar_t*)buf;
         int fs=oct2bin(header->size,11);
@@ -113,7 +125,7 @@ void initrd_list(char *buf)
         buf+=(((fs+511)/512)+1)*512;
     }
     // if it's a cpio archive. Cpio also has a trailer entry
-    while(!__builtin_memcmp(buf,"070707",6) && __builtin_memcmp(buf+sizeof(cpio_t),"TRAILER!!",9)) {
+    while(!memcmp(buf,"070707",6) && memcmp(buf+sizeof(cpio_t),"TRAILER!!",9)) {
         cpio_t *header = (cpio_t*)buf;
         int ns=oct2bin(header->namesize,6);
         int fs=oct2bin(header->filesize,11);

@@ -10,13 +10,29 @@ fordítsunk gcc kereszt-fordítót" vagy kérdezz az operációs rendszered szer
 nem is fogok segíteni a környezeted kialakításában, azt neked kell megoldanod. Mint a bevezetőben már írtam,
 feltételezem, hogy tudod, hogyan kell programokat fordítani (beleértve a kereszt-fordító fordítását).
 
-**MEGJEGYZÉS**: ha a gcc nem a szíved csücske, @laroche-nak hála az oktatóanyagok Clang-al is le lettek tesztelve.
+Minden könyvtárban két Makefile található, egy a GNU gcc-hez, egy pedig az LLVM clang-hoz. A neked megfelelőt válaszd.
+Használhattam volna makefile változókat és egy közös konfigurációt, de fontosnak tartottam, hogy minden egyes
+tananyag önálló és függőség mentes legyen.
+
+LLVM fordító és linkelő
+-----------------------
+
+A clang önmagában egy kereszt-fordító, ezért abból nem kell speciális verziót fordítani, mint a gcc-ből. Valamilyen
+(valószínűleg archaikus) oknál fogva a hozzá tartozó linkelő eltérő target sztringet használ (nincs benne kötőjel),
+erre jó odafigyelni és nem elfelejteni.
+
+```
+clang --target=aarch64-elf
+ld.lld -m aarch64elf
+```
+
+Továbbá szükséged lesz egyéb eszközökre. Az [url=https://github.com/llvm-mirror/llvm/tree/master/tools/llvm-objcopy]llvm-objcopy[/url]-t itt találod.
 
 Build rendszer
 --------------
 
 A fordítás levezénylésére a GNU make-t fogjuk használni. Ezt nem kell kereszt-fordítani, mivel csak az asztali gépen
-fogjuk futtatni, nem a céleszközön. Azért választottam ezt az oktatóanyagokhoz, mert a GNU make-re a fordító
+fogjuk futtatni, nem a céleszközön. Azért választottam ezt az oktatóanyagokhoz, mert a GNU make-re a GNU fordító
 lefordításához is szükséged lesz, szóval ígyis-úgyis kelleni fog.
 
 Források letöltése és kicsomagolása
