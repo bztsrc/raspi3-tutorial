@@ -26,7 +26,7 @@ clang --target=aarch64-elf
 ld.lld -m aarch64elf
 ```
 
-Továbbá szükséged lesz egyéb eszközökre. Az [url=https://github.com/llvm-mirror/llvm/tree/master/tools/llvm-objcopy]llvm-objcopy[/url]-t itt találod.
+Továbbá szükséged lesz egyéb eszközökre. Az [llvm-objcopy](https://github.com/llvm-mirror/llvm/tree/master/tools/llvm-objcopy)-t itt találod.
 
 Build rendszer
 --------------

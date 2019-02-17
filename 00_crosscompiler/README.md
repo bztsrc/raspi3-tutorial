@@ -24,7 +24,7 @@ clang --target=aarch64-elf
 ld.lld -m aarch64elf
 ```
 
-Also note that you'll need other tools. You can find [url=https://github.com/llvm-mirror/llvm/tree/master/tools/llvm-objcopy]llvm-objcopy[/url] here.
+Also note that you'll need other tools. You can find [llvm-objcopy](https://github.com/llvm-mirror/llvm/tree/master/tools/llvm-objcopy) here.
 
 Build system
 ------------
