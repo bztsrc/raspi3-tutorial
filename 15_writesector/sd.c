@@ -81,6 +81,7 @@
 #define INT_CMD_TIMEOUT     0x00010000
 #define INT_READ_RDY        0x00000020
 #define INT_WRITE_RDY       0x00000010
+#define INT_DATA_DONE       0x00000002
 #define INT_CMD_DONE        0x00000001
 
 #define INT_ERROR_MASK      0x017E8000
@@ -125,7 +126,7 @@ unsigned long sd_scr[2], sd_ocr, sd_rca, sd_err, sd_hv;
  */
 int sd_status(unsigned int mask)
 {
-    int cnt = 500000; while((*EMMC_STATUS & mask) && !(*EMMC_INTERRUPT & INT_ERROR_MASK) && cnt--) wait_msec(1);
+    int cnt = 1000000; while((*EMMC_STATUS & mask) && !(*EMMC_INTERRUPT & INT_ERROR_MASK) && cnt--) wait_msec(1);
     return (cnt <= 0 || (*EMMC_INTERRUPT & INT_ERROR_MASK)) ? SD_ERROR : SD_OK;
 }
 
@@ -242,6 +243,7 @@ int sd_writeblock(unsigned char *buffer, unsigned int lba, unsigned int num)
         for(d=0;d<128;d++) *EMMC_DATA = buf[d];
         c++; buf+=128;
     }
+    if((r=sd_int(INT_DATA_DONE))){uart_puts("\rERROR: Timeout waiting for data done\n");sd_err=r;return 0;}
     if( num > 1 && !(sd_scr[0] & SCR_SUPP_SET_BLKCNT) && (sd_scr[0] & SCR_SUPP_CCS)) sd_cmd(CMD_STOP_TRANS,0);
     return sd_err!=SD_OK || c!=num? 0 : num*512;
 }
