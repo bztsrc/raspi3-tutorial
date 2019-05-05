@@ -125,8 +125,8 @@ finished with the initialization by executing the code in bootcode.bin, it will 
 That's not an ARM executable, but compiled for the GPU. What interests us is that start.elf looks for different
 ARM executables, all starting with `kernel` and ending in `.img`. As we're going to program the CPU in AArch64 mode,
 we'll need `kernel8.img` only, which is the last to look for. Once it's loaded, the GPU triggers the reset line on
-the ARM processor, which starts executing code at address 0x80000 (or more precisely at 0, but the GPU puts an ARM
-jump code there first).
+the ARM processor, which starts executing code at address 0x80000 (or more precisely at 0, but the GPU puts an [ARM
+initialisation and jump code](https://github.com/raspberrypi/tools/blob/master/armstubs/armstub8.S) there first).
 
 The RAM (1G for the Raspberry Pi 3) is shared among the CPU and the GPU, meaning one can read what the other has
 written into memory. To avoid confusion, a well defined, so called [mailbox interface](https://github.com/raspberrypi/firmware/wiki/Mailboxes)

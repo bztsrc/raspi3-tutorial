@@ -13,6 +13,10 @@ egy megfelelő vermet, ki kell nulláznunk a bss szegmenst mielőtt kiadhatnánk
 Assembly sort, amik mindezt elvégzik. Arra az esetre, ha a C eljárás visszatérne (nem szabadna), ugyanarra a
 végtelen ciklusra ugrunk, mint amit a többi CPU mag is épp végrehajt.
 
+FIGYELEM: a config.txt-től függően lehetséges, hogy az alkalmazás magok le vannak állítva. Ha ez az eset áll fenn,
+akkor a kódunk eleve csak a 0-ás magon fut, de nem okoz bajt, ha mégis lecsekkoljuk a mag számát. A többi mag elindításához
+a futtatandó funkció címét kell beírni a 0xE0, 0xE8, 0xF0 címekre (rendre minden maghoz egy cím). Lásd [armstub8.S](https://github.com/raspberrypi/tools/blob/master/armstubs/armstub8.S#L129).
+
 Makefile
 --------
 
@@ -26,7 +30,7 @@ Linker script
 Hasonlóan, a linker szkript is bonyolultabbá vált, mivel a C-hez adat és bss szekciókra is szükség van. Hozzáadtam
 továbbá egy számolást a bss szegmens méretének megállapítására, így egyszerűen hivatkozhatunk rá Assembly-ben, és
 nem kell ott molyolni vele.
- 
+
 Fontos, hogy a text szegmens az Assembly kóddal kezdődjön, mivel ez elé raktuk a vermet, ezért kell a KEEP().
 Íly módon mind a betöltési címünk 0x80000, akárcsak a `_start` cimke címe és a verem teteje.
 

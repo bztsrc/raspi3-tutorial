@@ -130,7 +130,7 @@ inicializálásával, ami a bootcode.bin futtatását jelenti, betölti a start.
 kutat, melyek mind `kernel`-el kezdődnek, és `.img`-re végződnek. Mivel mi a CPU-t AArch64 módban fogjuk programozni,
 ezért nekünk a `kernel8.img` fájlra van szükségünk, ami a legutolsó keresett fájlnév. Miután betöltötte, a GPU magasba
 emeli az ARM processzor reset lábát, aminek hatására elkezdi a futtatást a 0x80000-as címen (egész pontosan a 0-ás
-címen, csak oda a GPU egy ARM ugrás utasítás rakott előtte).
+címen, csak oda a GPU egy [ARM inicializáló kódot és ugrás utasítást](https://github.com/raspberrypi/tools/blob/master/armstubs/armstub8.S) rakott előtte).
 
 A RAM (1G a Raspberry Pi 3-on) meg van osztva a CPU és a GPU között, ezért az egyik tudja olvasni, amit a másik
 a memóriába írt. A félreértések elkerülése végett egy jól definiált, úgy nevezett levelesláda [mailbox](https://github.com/raspberrypi/firmware/wiki/Mailboxes)
