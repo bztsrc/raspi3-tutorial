@@ -96,7 +96,7 @@ void mmu_init()
         PT_AF |       // accessed flag
         PT_USER |     // non-privileged
         PT_ISH |      // inner shareable
-        ((r<0x80||r>data_page)? PT_RW|PT_NX : PT_RO); // different for code and data
+        ((r<0x80||r>=data_page)? PT_RW|PT_NX : PT_RO); // different for code and data
 
     // TTBR1, kernel L1
     paging[512+511]=(unsigned long)((unsigned char*)&_end+4*PAGESIZE) | // physical address
