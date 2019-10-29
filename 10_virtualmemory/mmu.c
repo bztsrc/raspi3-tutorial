@@ -58,7 +58,8 @@ extern volatile unsigned char _end;
 void mmu_init()
 {
     unsigned long data_page = (unsigned long)&_data/PAGESIZE;
-    unsigned long r, b, *paging=(unsigned long*)&_end;
+    unsigned long r, b;
+    volatile unsigned long *paging=(unsigned long*)&_end;
 
     /* create MMU translation tables at _end */
 
