@@ -22,7 +22,8 @@ Lfb.h, lfb.c
 
 `lfb_init()` sets up resolution, depth, and color channel order. Also queries framebuffer's address.
 
-`lfb_showpicture()` displays a picture in the center of the screen by drawing pixels to the framebuffer.
+`lfb_showpicture()` displays a picture in the center of the screen by drawing pixels to the framebuffer. Note that the image
+is in RGB format. If the lfb isn't, then we have to swap R and B channels manually.
 
 Homer.h
 -------

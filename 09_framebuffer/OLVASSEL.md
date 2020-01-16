@@ -23,7 +23,8 @@ Lfb.h, lfb.c
 
 `lfb_init()` beállítja a felbontást, színmélységet, színcsatorna sorrendjét. Lekéri továbbá a framebuffer címét.
 
-`lfb_showpicture()` a framebuffer-be direkt pixelek írásával megjelenít egy képet a képernyő közepén.
+`lfb_showpicture()` a framebuffer-be direkt pixelek írásával megjelenít egy képet a képernyő közepén. A kép RGB formátumú. Ha
+az lfb nem az, akkor manuálisan fel kell cserélni az R és B csatornákat.
 
 Homer.h
 -------
