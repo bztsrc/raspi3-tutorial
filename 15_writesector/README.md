@@ -11,6 +11,9 @@ using an EFI Partitioning Table (like I do), then the counter could mess up that
 of the sector hoping the table is shorter than 508 bytes. If this not the case for you, then change the COUNTER_SECTOR
 define to point to a surely unused sector on your SD card.
 
+I'd would like to say thanks to [@DamianOslebo](https://github.com/DamianOslebo) for thgroughful testing and spotting
+a bad constant in the command defines.
+
 Sd.h, sd.c
 ------------
 

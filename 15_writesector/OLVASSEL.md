@@ -13,6 +13,9 @@ Ezért a legutolsó 4 bájtot választottam, remélve, hogy a tábla rövidebb, 
 meg a helyét, akkor változtasd meg a COUNTER_SECTOR értékét, hogy egy biztosan használaton kívüli szektorra
 mutasson.
 
+Szeretném külön megköszönni [@DamianOslebo](https://github.com/DamianOslebo) segítségét az alapos tesztelésért
+és amiért kiszúrt egy hibás parancs definíciót.
+
 Sd.h, sd.c
 ------------
 
