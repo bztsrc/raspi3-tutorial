@@ -143,7 +143,7 @@ Hasonlóan a perifáriák is a memórián keresztül kommunikálnak a CPU-val. M
 minden eszköz saját protokollt beszél. Ami közös, az az, hogy ez a memóriarész csak 32 bites adagokban, 4-el osztható
 címen írható / olvasható (szavak), és mindegyiknek kontroll/státusz illetve adat szavai vannak. Sajnálatos módon
 a Broadcom (a SoC gyártója) hírhedten szarul dokumentája a termékeit. A legjobb, ami van, a BCM2835-ös leírása, ami
-azért eléggé hasonló. (FRISSÍTÉS: Raspberry Piék kiadtak egy módosított verziót [BCM2837 dokumentációként](https://github.com/raspberrypi/documentation/files/1888662/)).
+azért eléggé hasonló.
 
 Van továbbá lapcímfordító egység (MMU) a CPU-ban ami lehetővé teszi virtuális címterek használatát. Ez néhány
 speciális CPU rendszer regiszterrel programozható, és oda kell figyelni, amikor ezeket az MMIO területeket képezük le
