@@ -45,24 +45,23 @@
 void uart_init()
 {
     register unsigned int r;
-    
+
     /* initialize UART */
-    *AUX_ENABLE |=1;       // enable UART1, AUX mini uart
-    *AUX_MU_IER = 0;
-    *AUX_MU_CNTL = 0;
-    *AUX_MU_LCR = 3;       // 8 bits
-    *AUX_MU_MCR = 0;
-    *AUX_MU_IER = 0;
-    *AUX_MU_IIR = 0xc6;    // disable interrupts
+    *AUX_ENABLE |= 1;      // enable UART1, AUX mini uart
+    *AUX_MU_IER = 0;       // disable UART1 interrupts
+    *AUX_MU_CNTL = 0;      // disable Tx, Rx
+    *AUX_MU_IIR = 6;       // clear Tx, Rx FIFOs
+    *AUX_MU_LCR = 3;       // 8 bit mode
+    *AUX_MU_MCR = 0;       // UART1_RTS line high
     *AUX_MU_BAUD = 270;    // 115200 baud
     /* map UART1 to GPIO pins */
     r=*GPFSEL1;
-    r&=~((7<<12)|(7<<15)); // gpio14, gpio15
-    r|=(2<<12)|(2<<15);    // alt5
+    r&=~((7<<12)|(7<<15)); // gpio14, gpio15 as inputs
+    r|=(2<<12)|(2<<15);    // gpio14, gpio15 alternate function 5
     *GPFSEL1 = r;
-    *GPPUD = 0;            // enable pins 14 and 15
+    *GPPUD = 0;            // GPIO pull-up/down OFF
     r=150; while(r--) { asm volatile("nop"); }
-    *GPPUDCLK0 = (1<<14)|(1<<15);
+    *GPPUDCLK0 = (1<<14)|(1<<15); // control signal pins 14, 15
     r=150; while(r--) { asm volatile("nop"); }
     *GPPUDCLK0 = 0;        // flush GPIO setup
     *AUX_MU_CNTL = 3;      // enable Tx, Rx
