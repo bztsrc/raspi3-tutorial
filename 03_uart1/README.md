@@ -10,7 +10,7 @@ Gpio.h
 ------
 
 We have a new header file. This defines the base MMIO address, and the GPIO controller's addresses. This file
-going to be very popular, as many device needs it.
+going to be very popular, as many device need it.
 
 Uart.h, uart.c
 --------------
