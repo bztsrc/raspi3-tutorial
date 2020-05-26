@@ -24,11 +24,23 @@
  */
 
 #include "uart.h"
+#include "gpio.h"
+
+unsigned long mmiobase = 0xFE000000;
 
 void main()
 {
     int size=0;
     char *kernel=(char*)0x80000;
+    unsigned long reg;
+    asm volatile ("mrs %0, midr_el1" : "=r" (reg));
+    reg = (reg >> 4) & 0xFFF;
+
+    if (reg == 0xC07 || reg == 0xD03) { // RPI 2 and 3
+      mmiobase = 0x3F000000;
+    } else {
+      mmiobase = 0xFE000000;
+    }
 
     // set up serial console
     uart_init();
