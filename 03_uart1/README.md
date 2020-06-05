@@ -10,7 +10,7 @@ Gpio.h
 ------
 
 We have a new header file. This defines the base MMIO address, and the GPIO controller's addresses. This file
-going to be very popular, as many device needs it.
+going to be very popular, as many devices need it.
 
 Uart.h, uart.c
 --------------
@@ -28,7 +28,7 @@ A very minimal implementation.
 Main
 ----
 
-First we have to call the uart initialization code. Then we say "Hello World!". If you've purchased an USB
+First, we have to call the uart initialization code. Then, it'll return "Hello World!". If you've purchased an USB
 serial cable, you should see it on minicom's screen. After that every character typed in minicom will be
 echoed back. If you haven't turned off local echo, that means you'll see every pressed key twice.
 
