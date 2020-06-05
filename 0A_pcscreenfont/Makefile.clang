@@ -35,11 +35,14 @@ start.o: start.S
 %.o: %.c
 	clang --target=aarch64-elf $(CFLAGS) -c $< -o $@
 
-font.o: font.psf
-	ld.lld -m aarch64elf -r -b binary -o font.o font.psf
+font_psf.o: font.psf
+	ld.lld -m aarch64elf -r -b binary -o font_psf.o font.psf
 
-kernel8.img: start.o font.o $(OBJS)
-	ld.lld -m aarch64elf -nostdlib start.o font.o $(OBJS) -T link.ld -o kernel8.elf
+font_sfn.o: font.sfn
+	ld.lld -m aarch64elf -r -b binary -o font_sfn.o font.sfn
+
+kernel8.img: start.o font_psf.o font_sfn.o $(OBJS)
+	ld.lld -m aarch64elf -nostdlib start.o font_psf.o font_sfn.o $(OBJS) -T link.ld -o kernel8.elf
 	llvm-objcopy -O binary kernel8.elf kernel8.img
 
 clean:

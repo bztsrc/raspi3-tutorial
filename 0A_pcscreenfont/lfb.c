@@ -40,6 +40,24 @@ typedef struct {
 } __attribute__((packed)) psf_t;
 extern volatile unsigned char _binary_font_psf_start;
 
+/* Scalable Screen Font (https://gitlab.com/bztsrc/scalable-font2) */
+typedef struct {
+    unsigned char  magic[4];
+    unsigned int   size;
+    unsigned char  type;
+    unsigned char  features;
+    unsigned char  width;
+    unsigned char  height;
+    unsigned char  baseline;
+    unsigned char  underline;
+    unsigned short fragments_offs;
+    unsigned int   characters_offs;
+    unsigned int   ligature_offs;
+    unsigned int   kerning_offs;
+    unsigned int   cmap_offs;
+} __attribute__((packed)) sfn_t;
+extern volatile unsigned char _binary_font_sfn_start;
+
 unsigned int width, height, pitch;
 unsigned char *lfb;
 
@@ -62,13 +80,13 @@ void lfb_init()
     mbox[9] = 8;
     mbox[10] = 1024;        //FrameBufferInfo.virtual_width
     mbox[11] = 768;         //FrameBufferInfo.virtual_height
-    
+
     mbox[12] = 0x48009; //set virt offset
     mbox[13] = 8;
     mbox[14] = 8;
     mbox[15] = 0;           //FrameBufferInfo.x_offset
     mbox[16] = 0;           //FrameBufferInfo.y.offset
-    
+
     mbox[17] = 0x48005; //set depth
     mbox[18] = 4;
     mbox[19] = 4;
@@ -104,7 +122,7 @@ void lfb_init()
 }
 
 /**
- * Display a string
+ * Display a string using PSF
  */
 void lfb_print(int x, int y, char *s)
 {
@@ -116,16 +134,16 @@ void lfb_print(int x, int y, char *s)
         unsigned char *glyph = (unsigned char*)&_binary_font_psf_start +
          font->headersize + (*((unsigned char*)s)<font->numglyph?*s:0)*font->bytesperglyph;
         // calculate the offset on screen
-        int offs = (y * font->height * pitch) + (x * (font->width+1) * 4);
+        int offs = (y * pitch) + (x * 4);
         // variables
         int i,j, line,mask, bytesperline=(font->width+7)/8;
         // handle carrige return
-        if(*s=='\r') {
-            x=0;
+        if(*s == '\r') {
+            x = 0;
         } else
         // new line
-        if(*s=='\n') {
-            x=0; y++;
+        if(*s == '\n') {
+            x = 0; y += font->height;
         } else {
             // display a character
             for(j=0;j<font->height;j++){
@@ -142,9 +160,66 @@ void lfb_print(int x, int y, char *s)
                 glyph+=bytesperline;
                 offs+=pitch;
             }
-            x++;
+            x += (font->width+1);
         }
         // next character
         s++;
+    }
+}
+
+/**
+ * Display a string using SSFN
+ */
+void lfb_proprint(int x, int y, char *s)
+{
+    // get our font
+    sfn_t *font = (sfn_t*)&_binary_font_sfn_start;
+    unsigned char *ptr, *chr, *frg;
+    unsigned int c;
+    unsigned long o, p;
+    int i, j, k, l, m, n;
+
+    while(*s) {
+        // UTF-8 to UNICODE code point
+        if((*s & 128) != 0) {
+            if(!(*s & 32)) { c = ((*s & 0x1F)<<6)|(*(s+1) & 0x3F); s += 1; } else
+            if(!(*s & 16)) { c = ((*s & 0xF)<<12)|((*(s+1) & 0x3F)<<6)|(*(s+2) & 0x3F); s += 2; } else
+            if(!(*s & 8)) { c = ((*s & 0x7)<<18)|((*(s+1) & 0x3F)<<12)|((*(s+2) & 0x3F)<<6)|(*(s+3) & 0x3F); s += 3; }
+            else c = 0;
+        } else c = *s;
+        s++;
+        // handle carrige return
+        if(c == '\r') {
+            x = 0; continue;
+        } else
+        // new line
+        if(c == '\n') {
+            x = 0; y += font->height; continue;
+        }
+        // find glyph, look up "c" in Character Table
+        for(ptr = (unsigned char*)font + font->characters_offs, chr = 0, i = 0; i < 0x110000; i++) {
+            if(ptr[0] == 0xFF) { i += 65535; ptr++; }
+            else if((ptr[0] & 0xC0) == 0xC0) { j = (((ptr[0] & 0x3F) << 8) | ptr[1]); i += j; ptr += 2; }
+            else if((ptr[0] & 0xC0) == 0x80) { j = (ptr[0] & 0x3F); i += j; ptr++; }
+            else { if((unsigned int)i == c) { chr = ptr; break; } ptr += 6 + ptr[1] * (ptr[0] & 0x40 ? 6 : 5); }
+        }
+        if(!chr) continue;
+        // uncompress and display fragments
+        ptr = chr + 6; o = (unsigned long)lfb + y * pitch + x * 4;
+        for(i = n = 0; i < chr[1]; i++, ptr += chr[0] & 0x40 ? 6 : 5) {
+            if(ptr[0] == 255 && ptr[1] == 255) continue;
+            frg = (unsigned char*)font + (chr[0] & 0x40 ? ((ptr[5] << 24) | (ptr[4] << 16) | (ptr[3] << 8) | ptr[2]) :
+                ((ptr[4] << 16) | (ptr[3] << 8) | ptr[2]));
+            if((frg[0] & 0xE0) != 0x80) continue;
+            o += (int)(ptr[1] - n) * pitch; n = ptr[1];
+            k = ((frg[0] & 0x1F) + 1) << 3; j = frg[1] + 1; frg += 2;
+            for(m = 1; j; j--, n++, o += pitch)
+                for(p = o, l = 0; l < k; l++, p += 4, m <<= 1) {
+                    if(m > 0x80) { frg++; m = 1; }
+                    if(*frg & m) *((unsigned int*)p) = 0xFFFFFF;
+                }
+        }
+        // add advances
+        x += chr[4]+1; y += chr[5];
     }
 }
