@@ -14,7 +14,7 @@ Lfb.h, lfb.c
 
 `lfb_print(x,y,s)` displays a string on screen with fixed-sized glyphs using PSF.
 
-`lfb_proprint(x,y,s)` displays a string on screen with proportinal SSFN font.
+`lfb_proprint(x,y,s)` displays a string on screen with proportional SSFN font.
 
 Font.psf
 --------
@@ -27,7 +27,7 @@ Font.sfn
 --------
 
 One of the biggest drawbacks of PSF that it does not store glyph metrics. To support UTF-8 strings, you will
-need proportinal fonts (that is, 8x16 bitmaps for Latin script and 16x16 for CJK glyphs for example). So I've
+need proportional fonts (that is, 8x16 bitmaps for Latin script and 16x16 for CJK glyphs for example). So I've
 added a demonstration on how to use [Scalable Screen Font](https://gitlab.com/bztsrc/scalable-font2) to
 overcome this. More information, example fonts and font converter can be found in the SSFN repository.
 

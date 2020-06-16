@@ -122,7 +122,7 @@ void lfb_init()
 }
 
 /**
- * Display a string using PSF
+ * Display a string using fixed size PSF
  */
 void lfb_print(int x, int y, char *s)
 {
@@ -168,7 +168,7 @@ void lfb_print(int x, int y, char *s)
 }
 
 /**
- * Display a string using SSFN
+ * Display a string using proportional SSFN
  */
 void lfb_proprint(int x, int y, char *s)
 {
