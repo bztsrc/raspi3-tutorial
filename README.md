@@ -49,7 +49,7 @@ Why not Rust?
 Simply because my personal opinion is that Rust is a much higher level language than preferable for bare metal, something like
 with C++. But if you provide the required runtime libraries, you can do it. My multiplatform system boot loader has an
 [example Rust kernel](https://gitlab.com/bztsrc/bootboot) too and @andre-richter ported these tutorials to Rust.
-He has added considerably more code to his [Rust repository](https://github.com/rust-embedded/rust-raspberry-OS-tutorials) which
+He has added considerably more code to his [Rust repository](https://github.com/rust-embedded/rust-raspi3-OS-tutorials) which
 is a very good start if you're interested in this language.
 
 Prerequisites

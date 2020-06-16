@@ -52,7 +52,7 @@ Miért nem Rust?
 Egyszerűen azért, mert a személyes véleményem az, hogy a Rust nyelv felsőbb szintű, mint ami ideális a direkt vas programozásához,
 valahogy úgy, ahogy C++ esetében. De ha biztosítod a szükséges runtime függvénykönyvtárat, akkor lehetséges. A multiplatform
 rendszerbetöltőmhöz van egy [minta Rust kernel](https://gitlab.com/bztsrc/bootboot) is, és @andre-richter portolta ezeket az
-oktatóanyagokat Rustra. Később jelentősen átírta és kibővítette a [Rust repó](https://github.com/rust-embedded/rust-raspberry-OS-tutorials)ját,
+oktatóanyagokat Rustra. Később jelentősen átírta és kibővítette a [Rust repó](https://github.com/rust-embedded/rust-raspi3-OS-tutorials)ját,
 ami kiváló kiindulás ha ez a programozási nyelv érdekel.
 
 Előkészületek
