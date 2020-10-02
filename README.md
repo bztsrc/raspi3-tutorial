@@ -52,6 +52,11 @@ with C++. But if you provide the required runtime libraries, you can do it. My m
 He has added considerably more code to his [Rust repository](https://github.com/rust-embedded/rust-raspi3-OS-tutorials) which
 is a very good start if you're interested in this language.
 
+A few questions popped up on [ycombinator](https://news.ycombinator.com/item?id=24637129) regarding this. First, please note
+that I've started the sentance with "my personal opinion" (and I mean Rust has a considerably larger grammar than C, and it's
+easy to forget with cargo that you actually must compile in all dependencies). Second, and please don't get this the wrong way,
+but if you find clicking on the "Rust port" link too complicated then maybe low-level programming is not the best hobby for you!
+
 Prerequisites
 -------------
 
@@ -129,7 +134,7 @@ That includes a
 
  - VideoCore GPU
  - ARM-Cortex-A53 CPU (ARMv8)
- - Some MMIO mapped pheripherals.
+ - Some MMIO mapped peripherals.
 
 Interestingly the CPU is not the main processor on the board. When it's powered up, first GPU runs. When it's
 finished with the initialization by executing the code in bootcode.bin, it will load and execute the start.elf executable.
