@@ -53,9 +53,10 @@ He has added considerably more code to his [Rust repository](https://github.com/
 is a very good start if you're interested in this language.
 
 A few questions popped up on [ycombinator](https://news.ycombinator.com/item?id=24637129) regarding this. First, please note
-that I've started the sentance with "my personal opinion" (and I mean Rust has a considerably larger grammar than C, and it's
-easy to forget with cargo that you actually must compile in all dependencies). Second, and please don't get this the wrong way,
-but if you find clicking on the "Rust port" link too complicated then maybe low-level programming is not the best hobby for you!
+that I've started the sentance with "my personal opinion" (and I mean Rust has a considerably larger and more complex grammar
+than C, and it's easy to forget with cargo that you actually must compile in all library dependencies). Second, and please
+don't get this the wrong way, but if you find clicking on the "Rust port" link too complicated then maybe low-level
+programming is not the best hobby for you!
 
 Prerequisites
 -------------
