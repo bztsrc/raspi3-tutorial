@@ -25,7 +25,7 @@ Ajánlott a kódunkat minimalizálni, mivel úgyis figyelmen kívül hagyja az �
 
 ```sh
 $ aarch64-elf-readelf -s kernel8.elf | grep __bss_end
-    27: 000000000007ffe0     0 NOTYPE  GLOBAL DEFAULT    4 __bss_end
+    27: 000000000007ffb0     0 NOTYPE  GLOBAL DEFAULT    4 __bss_end
 ```
 
 Start
@@ -34,6 +34,9 @@ Start
 Először is elmentjük a regiszter paramétereket. Hozzáadtam egy ciklust, ami átmásolja a kódunkat arra a címre, ahová
 vártuk, hogy betöltődjön. Végül meghívjuk a relokált C kódot. Mivel a gcc RIP-relatív ugrást generál, nekünk kell a
 relokálást hozzáadni a címhez.
+
+Köszönet [@mrvn](https://github.com/mrvn)-nek, amiért felhívta a figyelmem a nem relokált végtelen ciklusra. Szerencsére
+a firmver változott, és csak a BSP-n fut ez a kód, ezért senkinek nem okozott gondot és senkinek nem is tűnt fel.
 
 Linker
 ------

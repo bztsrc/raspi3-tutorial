@@ -13,7 +13,7 @@ egy megfelelő vermet, ki kell nulláznunk a bss szegmenst mielőtt kiadhatnánk
 Assembly sort, amik mindezt elvégzik. Arra az esetre, ha a C eljárás visszatérne (nem szabadna), ugyanarra a
 végtelen ciklusra ugrunk, mint amit a többi CPU mag is épp végrehajt.
 
-FIGYELEM: a config.txt-től függően lehetséges, hogy az alkalmazás magok le vannak állítva. Ha ez az eset áll fenn,
+FIGYELEM: a firmver verziójától függően lehetséges, hogy az alkalmazás magok le vannak állítva. Ha ez az eset áll fenn,
 akkor a kódunk eleve csak a 0-ás magon fut, de nem okoz bajt, ha mégis lecsekkoljuk a mag számát. A többi mag elindításához
 a futtatandó funkció címét kell beírni a 0xE0, 0xE8, 0xF0 címekre (rendre minden maghoz egy cím). Lásd [armstub8.S](https://github.com/raspberrypi/tools/blob/master/armstubs/armstub8.S#L129).
 

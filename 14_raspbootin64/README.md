@@ -24,7 +24,7 @@ the load address. You can check that with:
 
 ```sh
 $ aarch64-elf-readelf -s kernel8.elf | grep __bss_end
-    27: 000000000007ffe0     0 NOTYPE  GLOBAL DEFAULT    4 __bss_end
+    27: 000000000007ffb0     0 NOTYPE  GLOBAL DEFAULT    4 __bss_end
 ```
 
 Start
@@ -33,6 +33,10 @@ Start
 We have to save the arguments in registers passed by the firmware. Added a loop to relocate our code to the
 address it should have been loaded to. And last, since gcc generates RIP-relative jumps, we must adjust the
 branch instruction to jump to the relocated C code.
+
+Thanks to [@mrvn](https://github.com/mrvn) for noticing running a non-relocated spi-loop would be very bad.
+Because of a change in the firmware, this code runs only on the BSP, that's why it didn't caused trouble and
+that's why nobody noticed.
 
 Linker
 ------

@@ -36,14 +36,10 @@ _start:
     mov     x12, x2
     mov     x13, x3
 
-    // read cpu id, stop slave cores
-    mrs     x1, mpidr_el1
-    and     x1, x1, #3
-    cbz     x1, 2f
-    // cpu id > 0, stop
-1:  wfe
-    b       1b
-2:  // cpu id == 0
+    // IMPORTANT: because of a change in firmware, this code will only run on the
+    // BSP core, therefore there's no need to check the cpu's id. A spin-loop on a
+    // non-relocated address would be otherwise bad, thanks for the heads up @mrvn
+    // See https://github.com/raspberrypi/tools/blob/master/armstubs/armstub8.S
 
     // relocate our code from load address to link address
     ldr     x1, =0x80000
