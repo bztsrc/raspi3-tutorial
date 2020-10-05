@@ -34,7 +34,7 @@ We have to save the arguments in registers passed by the firmware. Added a loop 
 address it should have been loaded to. And last, since gcc generates RIP-relative jumps, we must adjust the
 branch instruction to jump to the relocated C code.
 
-Thanks to [@mrvn](https://github.com/mrvn) for noticing running a non-relocated spi-loop would be very bad.
+Thanks to [@mrvn](https://github.com/mrvn) for noticing running a non-relocated spin-loop would be very bad.
 Because of a change in the firmware, this code runs only on the BSP, that's why it didn't caused trouble and
 that's why nobody noticed.
 
