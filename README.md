@@ -35,6 +35,14 @@ For 32 bit tutorials, I'd recommend:
 
 [Leon de Boer's tutorials](https://github.com/LdB-ECM/Raspberry-Pi) (C and ASM, also for 64 bit, more complex examples like USB and OpenGL).
 
+What about Raspberry Pi 4?
+--------------------------
+
+More or less the same hw with the same peripherals, only the MMIO_BASE address is different (as long as this tutorial concerned,
+most of the differences are irrelevant for us). For RPi4 tutorials I'd recommend
+
+[rpi4-osdev tutorials](https://isometimes.github.io/rpi4-osdev)
+
 Why not C++?
 ------------
 

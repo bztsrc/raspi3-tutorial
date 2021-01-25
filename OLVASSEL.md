@@ -37,6 +37,15 @@ Harmadsorban MMIO-t használ, amit könnyű programozni.
 
 [Leon de Boer oktatóanyagai](https://github.com/LdB-ECM/Raspberry-Pi) (C és ASM, 64 bites és összetettebb példák is, mint USB és OpenGL).
 
+Mi a helyzet Raspberry Pi 4 fronton?
+------------------------------------
+
+Többé-kevésbé ugyanaz a vas, és ugyanazok a perifériák csak az MMIO_BASE címe más (mármint ami ezt az oktatóanyagot érinti,
+a legtöbb különbség minket most nem érint). RPi4 oktatóanyagnak a következőt ajánlom:
+
+[rpi4-osdev oktatóanyagai](https://isometimes.github.io/rpi4-osdev)
+
+
 Miért nem C++?
 --------------
 

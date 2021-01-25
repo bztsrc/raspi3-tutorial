@@ -2,18 +2,18 @@ Tutorial 13 - Debugger
 ======================
 
 Let's rock by implementing an interactive debugger in our exception handler! :-) Now that we have printf(), it
-shouldn't be hard.
+shouldn't be hard. (For a more roboust multiplatform library, see [mini debugger](https://gitlab.com/bztsrc/minidbg).)
 
 ```sh
 $ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
 Synchronous: Breakpoint instruction
-> x 
+> x
 0007FFF0: 13 60 09 00  00 00 00 00  24 10 20 3F  00 00 00 00  .`......$. ?....
-> i x30 x30+64 
+> i x30 x30+64
 00080804: D2800000      movz      x0, #0x0
 00080808: 94003D1C      bl        0x8FC78
 0008080C: 94003ECF      bl        0x90348
-00080810: D69F03E0      eret      
+00080810: D69F03E0      eret
 00080814: D503201F        27 x nop
 >
 ```
