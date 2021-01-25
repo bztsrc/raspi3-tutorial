@@ -40,8 +40,6 @@ void rand_init()
     *RNG_INT_MASK|=1;
     // enable
     *RNG_CTRL|=1;
-    // wait for gaining some entropy
-    while(!((*RNG_STATUS)>>24)) asm volatile("nop");
 }
 
 /**
@@ -49,5 +47,8 @@ void rand_init()
  */
 unsigned int rand(unsigned int min, unsigned int max)
 {
+    // may need to wait for entropy: bits 24-31 store how many words are
+    // available for reading; require at least one
+    while(!((*RNG_STATUS)>>24)) asm volatile("nop");
     return *RNG_DATA % (max-min) + min;
 }
