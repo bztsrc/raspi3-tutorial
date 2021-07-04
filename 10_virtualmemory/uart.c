@@ -72,8 +72,8 @@ void uart_init()
     *UART0_ICR = 0x7FF;    // clear interrupts
     *UART0_IBRD = 2;       // 115200 baud
     *UART0_FBRD = 0xB;
-    *UART0_LCRH = 0b11<<5; // 8n1
-    *UART0_CR = 0x301;     // enable Tx, Rx, FIFO
+    *UART0_LCRH = 0x7<<4;  // 8n1, enable FIFOs
+    *UART0_CR = 0x301;     // enable Tx, Rx, UART
 }
 
 /**
