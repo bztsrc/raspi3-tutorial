@@ -32,7 +32,7 @@ start.o: start.S
 
 kernel8.img: start.o
 	ld.lld -m aarch64elf -nostdlib start.o -T link.ld -o kernel8.elf
-	llvm-objcopy --target=aarch64-elf -O binary kernel8.elf kernel8.img
+	llvm-objcopy -O binary kernel8.elf kernel8.img
 
 clean:
 	rm kernel8.elf *.o >/dev/null 2>/dev/null || true
