@@ -37,7 +37,7 @@ _start:
     b       1b
 2:  // cpu id == 0
 
-    // set stack before our code
+    // set top of stack just before our code (stack grows to a lower address per AAPCS64)
     ldr     x1, =_start
     mov     sp, x1
 
