@@ -5,7 +5,7 @@ Let's go back to tutorial 0B for a moment, and add a function to write the SD ca
 a boot counter. We're going to read a sector into memory (same as in 0B), increase a counter in the sector buffer,
 then save it back to the SD card. This way every time we reboot this image, the counter should be increased.
 
-For the counter I've choosen the last 4 bytes of the 2nd sector. I did not wanted to use the first sector, as that
+For the counter I've choosen the last 4 bytes of the 2nd sector. I did not want to use the first sector, as that
 could mess up the Master Boot Record and render our card unbootable. Second sector is safer, although if you're
 using an EFI Partitioning Table (like I do), then the counter could mess up that too. So I've choosen the last 4 bytes
 of the sector hoping the table is shorter than 508 bytes. If this not the case for you, then change the COUNTER_SECTOR
