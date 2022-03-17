@@ -101,16 +101,16 @@ a támogatást hozzá, így hamarosan érkezik (FRISSÍTÉS: elérhető a [qemu 
 sajnos fordítani kell a qemu-t a legfrissebb forrásból. Miután lefordult, így tudod használni:
 
 ```sh
-qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio
 ```
 
 Vagy (a fájl rendszer oktatóanyagok esetében)
 
 ```sh
-qemu-system-aarch64 -M raspi3 -kernel kernel8.img -drive file=$(yourimagefile),if=sd,format=raw -serial stdio
+qemu-system-aarch64 -M raspi3b -kernel kernel8.img -drive file=$(yourimagefile),if=sd,format=raw -serial stdio
 ```
 
-**-M raspi3**
+**-M raspi3b**
 Az első paraméter utasítja a qemu-t a Raspberry Pi 3 hardver emulálására.
 
 **-kernel kernel8.img**
