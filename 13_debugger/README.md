@@ -5,7 +5,7 @@ Let's rock by implementing an interactive debugger in our exception handler! :-)
 shouldn't be hard. (For a more roboust multiplatform library, see [mini debugger](https://gitlab.com/bztsrc/minidbg).)
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+$ qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio
 Synchronous: Breakpoint instruction
 > x
 0007FFF0: 13 60 09 00  00 00 00 00  24 10 20 3F  00 00 00 00  .`......$. ?....

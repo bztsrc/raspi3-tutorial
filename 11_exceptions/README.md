@@ -6,7 +6,7 @@ easy to write the table blindly, so we're going to add exception handlers this t
 system registers to identify the problem with our translation tables.
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+$ qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio
 Synchronous: Data abort, same EL, Translation fault at level 2:
   ESR_EL1 0000000096000006 ELR_EL1 0000000000080D7C
  SPSR_EL1 00000000200003C4 FAR_EL1 FFFFFFFFFF000000

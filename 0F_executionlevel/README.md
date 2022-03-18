@@ -7,7 +7,7 @@ make sure of it, we are at supervisor level, EL1. Qemu may start machine at EL1,
 normally boots at hypervisor level, EL2. Under qemu use "-d int" to debug the level change.
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio -d int
+$ qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio -d int
 Exception return from AArch64 EL2 to AArch64 EL1 PC 0x8004c
 Current EL is: 00000001
 ```

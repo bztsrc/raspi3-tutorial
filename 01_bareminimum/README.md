@@ -5,7 +5,7 @@ Okay, we're not going to do anything here, just test our toolchain. The resultin
 boot on Raspberry Pi, and stop the CPU cores in an infinite loop. You can check that by running
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -d in_asm
+$ qemu-system-aarch64 -M raspi3b -kernel kernel8.img -d in_asm
         ... output removed for clearity, last line: ...
 0x0000000000080004:  17ffffff      b #-0x4 (addr 0x80000)
 ```

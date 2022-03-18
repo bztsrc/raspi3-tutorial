@@ -5,7 +5,7 @@ Ebben az okatatóanyagban ugyanazt csináljuk, mint a 4-esben, de most a széria
 Emiatt ez a példa könnyen használható qemu-val is:
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+$ qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio
 My serial number is: 0000000000000000
 ```
 

@@ -5,7 +5,7 @@ Now that we can load a sector from the storage, it is time to parse it as a file
 tutorial will show you how to list the root directory entries of a FAT16 or FAT32 partition.
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -drive file=test.dd,if=sd,format=raw -serial stdio
+$ qemu-system-aarch64 -M raspi3b -drive file=test.dd,if=sd,format=raw -serial stdio
         ... output removed for clearity ...
 MBR disk identifier: 12345678
 FAT partition starts at: 00000008

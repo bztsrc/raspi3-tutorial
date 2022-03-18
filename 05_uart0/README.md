@@ -5,7 +5,7 @@ This tutorial does the same as tutorial 04, but it prints the serial number on U
 easily with qemu, like
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+$ qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio
 My serial number is: 0000000000000000
 ```
 

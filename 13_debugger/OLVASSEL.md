@@ -5,7 +5,7 @@ Zuzassunk egy nagyot, rakjunk mindjárt egy interaktív debuggert a kivételkeze
 nem lesz olyan vészes. (Egy kompletebb, többplatformos függvénykönyvtárért, lásd a [mini debugger](https://gitlab.com/bztsrc/minidbg)-t.)
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+$ qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio
 Synchronous: Breakpoint instruction
 > x
 0007FFF0: 13 60 09 00  00 00 00 00  24 10 20 3F  00 00 00 00  .`......$. ?....

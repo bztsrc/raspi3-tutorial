@@ -5,7 +5,7 @@ Megtanultuk, hogy kell beolvasni és értelmezni a gyökérkönyvtárat. Ebben a
 a gyökérkönyvtárból, és a kluszterláncát végigjárva teljes egészében betöltjük a memóriába.
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -drive file=test.dd,if=sd,format=raw -serial stdio
+$ qemu-system-aarch64 -M raspi3b -drive file=test.dd,if=sd,format=raw -serial stdio
         ... kimenet törölve az átláthatóság miatt ...
 FAT File LICENC~1BRO starts at cluster: 00000192
 FAT Bytes per Sector: 00000200

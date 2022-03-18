@@ -5,7 +5,7 @@ We learned how to read and parse the root directory. In this tutorial we'll get 
 root directory, and walk through the cluster chain to load it entirely into memory.
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -drive file=test.dd,if=sd,format=raw -serial stdio
+$ qemu-system-aarch64 -M raspi3b -drive file=test.dd,if=sd,format=raw -serial stdio
         ... output removed for clearity ...
 FAT File LICENC~1BRO starts at cluster: 00000192
 FAT Bytes per Sector: 00000200

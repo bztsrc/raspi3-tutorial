@@ -8,7 +8,7 @@ indulhat egyből EL1-en, az igazi Raspberry Pi vason azonban általában virtual
 ébredünk. Qemu alatt a szintváltást a "-d int" kapcsolóval debuggolhatjuk.
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio -d int
+$ qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio -d int
 Exception return from AArch64 EL2 to AArch64 EL1 PC 0x8004c
 Current EL is: 00000001
 ```
