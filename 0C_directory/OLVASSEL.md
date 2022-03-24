@@ -5,7 +5,7 @@ Most hogy már tudunk szektort beolvasni, ideje értelmezni a fájlrendszert. Ez
 hogy hogyan listázzuk ki egy FAT16 vagy FAT32 partíció gyökérkönyvtárát.
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -drive file=test.dd,if=sd,format=raw -serial stdio
+$ qemu-system-aarch64 -M raspi3b -drive file=test.dd,if=sd,format=raw -serial stdio
         ... kimenet törölve az átláthatóság miatt ...
 MBR disk identifier: 12345678
 FAT partition starts at: 00000008

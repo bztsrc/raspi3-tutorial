@@ -5,7 +5,7 @@ Before we can improve our exception handler, we are going to need some functions
 Since we are programming bare metal, we don't have libc, therefore we have to implement printf() on our own.
 
 ```sh
-$ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+$ qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio
 Hello World!
 This is character 'A', a hex number: 7FFF and in decimal: 32767
 Padding test: '00007FFF', '    -123'

@@ -103,17 +103,17 @@ it's coming soon (UPDATE: available in [qemu 2.12](https://wiki.qemu.org/ChangeL
 compile qemu from the latest source. Once compiled, you can use it with:
 
 ```sh
-qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+qemu-system-aarch64 -M raspi3b -kernel kernel8.img -serial stdio
 ```
 
 Or (with the file system tutorials)
 
 ```sh
-qemu-system-aarch64 -M raspi3 -kernel kernel8.img -drive file=$(yourimagefile),if=sd,format=raw -serial stdio
+qemu-system-aarch64 -M raspi3b -kernel kernel8.img -drive file=$(yourimagefile),if=sd,format=raw -serial stdio
 ```
 
-**-M raspi3**
-The first argument tells qemu to emulate Raspberry Pi 3 hardware.
+**-M raspi3b**
+The first argument tells qemu to emulate Raspberry Pi 3 Model B hardware.
 
 **-kernel kernel8.img**
 The second tells the kernel filename to be used.
