@@ -6,7 +6,7 @@ root directory, and walk through the cluster chain to load it entirely into memo
 
 ```sh
 $ qemu-system-aarch64 -M raspi3b -drive file=test.dd,if=sd,format=raw -serial stdio
-        ... output removed for clearity ...
+        ... output removed for clarity ...
 FAT File LICENC~1BRO starts at cluster: 00000192
 FAT Bytes per Sector: 00000200
 FAT Sectors per Cluster: 00000004
@@ -14,7 +14,7 @@ FAT Number of FAT: 00000002
 FAT Sectors per FAT: 00000014
 FAT Reserved Sectors Count: 00000004
 FAT First data sector: 00000054
-        ... output removed for clearity ...
+        ... output removed for clarity ...
 00085020: 43 6F 70 79  72 69 67 68  74 20 28 63  29 20 32 30  Copyright (c) 20
 00085030: 30 36 2C 20  42 72 6F 61  64 63 6F 6D  20 43 6F 72  06, Broadcom Cor
 00085040: 70 6F 72 61  74 69 6F 6E  2E 0A 43 6F  70 79 72 69  poration..Copyri
