@@ -14,7 +14,7 @@ Start
 -----
 
 When the control is passed to kernel8.img, the environment is not ready for C. Therefore we must
-implement a small preambule in Assembly. As this first tutorial is very simple, that's all we have, no C
+implement a small preamble in Assembly. As this first tutorial is very simple, that's all we have, no C
 for now.
 
 Note that CPU has 4 cores. All of them are running the same infinite loop for now.
