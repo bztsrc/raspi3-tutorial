@@ -86,7 +86,7 @@ char uart_getc() {
     do{asm volatile("nop");}while(!(*AUX_MU_LSR&0x01));
     /* read it and return */
     r=(char)(*AUX_MU_IO);
-    /* convert carrige return to newline */
+    /* convert carriage return to newline */
     return r=='\r'?'\n':r;
 }
 
@@ -95,7 +95,7 @@ char uart_getc() {
  */
 void uart_puts(char *s) {
     while(*s) {
-        /* convert newline to carrige return + newline */
+        /* convert newline to carriage return + newline */
         if(*s=='\n')
             uart_send('\r');
         uart_send(*s++);
