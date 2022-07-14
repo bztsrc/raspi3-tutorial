@@ -23,7 +23,7 @@ Makefile
 --------
 
 Our Makefile is very simple. We compile start.S, as this is our only source. Then in linker phase we
-link it using the linker.ld script. Finaly we convert the resulting elf executable into a raw image.
+link it using the linker.ld script. Finally we convert the resulting elf executable into a raw image.
 
 Linker script
 -------------
