@@ -35,4 +35,4 @@ the KEEP(). This way our load address is 0x80000, the same as `_start` label and
 Main
 ----
 
-Finaly, our first C code. Just an empty loop, but still! :-)
+Finally, our first C code. Just an empty loop, but still! :-)
