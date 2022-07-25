@@ -203,7 +203,8 @@ char *fat_readfile(unsigned int cluster)
     // end of FAT in memory
     data=ptr=&_end+512+s;
     // iterate on cluster chain
-    while(cluster>1 && cluster<0xFFF8) {
+    // (Yep, MS is full of lies. FAT32 is actually FAT28 only, no mistake, the upper 4 bits must be zero)
+    while(cluster>1 && cluster<(bpb->spf16>0?0xFFF8:0x0FFFFFF8)) {
         // load all sectors in a cluster
         sd_readblock((cluster-2)*bpb->spc+data_sec,ptr,bpb->spc);
         // move pointer, sector per cluster * bytes per sector
