@@ -9,7 +9,7 @@ Sd.h, sd.c
 
 Well, it would be nice to have a mailbox for reading and writing sectors, but there isn't. So we have to
 talk directly to the EMMC, which is tricky and boring. We have to handle all kinds of cards. But finally,
-we have two function.
+we have two functions.
 
 `sd_init()` initialize EMMC for SD card read.
 
