@@ -9,7 +9,7 @@ Start
 
 Now we have to distinguish the cores. For that, we read the *mpidr_el1* system register. If it's not zero, we'll
 do the former infinite loop. If it's zero, then we'll call a C function. But for that, we need a proper stack, and a
-zerod out bss segment in memory before the call instruction. I've added some more code to the Assembly to do all of
+zeroed out bss segment in memory before the call instruction. I've added some more code to the Assembly to do all of
 that. In case the C code returns (shouldn't), we also jump to the same infinite loop the other CPU cores running.
 
 NOTE: depending on your firmware version, it is possible that application cores are stopped. If that's the case then
