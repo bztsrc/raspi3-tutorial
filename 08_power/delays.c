@@ -47,7 +47,7 @@ void wait_msec(unsigned int n)
     // read the current counter
     asm volatile ("mrs %0, cntpct_el0" : "=r"(t));
     // calculate required count increase
-    unsigned long i=((f/1000)*n)/1000
+    unsigned long i=((f/1000)*n)/1000;
     // loop while counter increase is less than i
     do{asm volatile ("mrs %0, cntpct_el0" : "=r"(r));}while(r-t<i);
 }
