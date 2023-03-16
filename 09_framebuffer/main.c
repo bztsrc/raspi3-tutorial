@@ -25,9 +25,12 @@
 
 #include "uart.h"
 #include "lfb.h"
+#include "delays.h"
 
 void main()
 {
+    wait_msec(100000);
+
     // set up serial console and linear frame buffer
     uart_init();
     lfb_init();
