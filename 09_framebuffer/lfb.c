@@ -26,6 +26,7 @@
 #include "uart.h"
 #include "mbox.h"
 #include "homer.h"
+#include "delays.h"
 
 unsigned int width, height, pitch, isrgb;   /* dimensions and channel order */
 unsigned char *lfb;                         /* raw frame buffer address */
@@ -35,6 +36,9 @@ unsigned char *lfb;                         /* raw frame buffer address */
  */
 void lfb_init()
 {
+    /* newer qemu segfaults if we don't wait here a bit */
+    wait_msec(100000);
+
     mbox[0] = 35*4;
     mbox[1] = MBOX_REQUEST;
 
