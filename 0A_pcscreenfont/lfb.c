@@ -25,6 +25,7 @@
 
 #include "uart.h"
 #include "mbox.h"
+#include "delays.h"
 
 /* PC Screen Font as used by Linux Console */
 typedef struct {
@@ -66,6 +67,9 @@ unsigned char *lfb;
  */
 void lfb_init()
 {
+    /* newer qemu segfaults if we don't wait here a bit */
+    wait_msec(100000);
+
     mbox[0] = 35*4;
     mbox[1] = MBOX_REQUEST;
 
